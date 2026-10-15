@@ -17,9 +17,9 @@ After every milestone: run `npx tsc --noEmit`, `npm run lint`, `npm run build` (
 - Commit: `feat(ui): design system and layouts`
 
 ## M2 - Public pages with static data (`docs/01` step D)
-- [ ] Landing, Ruangan (+ empty state), Detail Kamar (+ lightbox), About, Contact, 404/403
-- [ ] Login, Register, Lupa Password, Reset Password pages (UI only)
-- [ ] Responsive at 390/768/1440
+- [x] Landing, Ruangan (+ empty state), Detail Kamar (+ lightbox), About, Contact, 404/403
+- [x] Login, Register, Lupa Password, Reset Password pages (UI only)
+- [x] Responsive at 390/768/1440
 - Commit: `feat(ui): public and auth pages (static)`
 
 ## M3 - Database

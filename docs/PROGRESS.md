@@ -9,6 +9,13 @@
 - Folder structure per AGENTS.md
 - design/INDEX.md (18 Stitch screens mapped)
 
+### M2 - Public Pages Static (placeholder data)
+- Landing page with hero, about, room types, facilities, booking steps, location
+- Room search page with mock room cards and detail page
+- About, Contact, Login, Register, Forgot Password, Reset Password pages
+- 404 and 403 error pages
+- 14 placeholder SVG images in public/images/
+
 ### M1 - Design System & Layouts
 - globals.css + Tailwind tokens + fonts (EB Garamond + DM Sans)
 - UI primitives: Button, Input, Textarea, Select, Label, FieldError,
