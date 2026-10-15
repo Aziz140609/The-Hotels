@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { EB_Garamond, DM_Sans } from 'next/font/google';
 import './globals.css';
+import { ToastProvider } from '@/components/ui/toast';
 
 const ebGaramond = EB_Garamond({
   subsets: ['latin'],
@@ -28,7 +29,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
       lang="id"
       className={`${ebGaramond.variable} ${dmSans.variable} h-full`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">{children}<ToastProvider /></body>
     </html>
   );
 }
