@@ -23,9 +23,9 @@ After every milestone: run `npx tsc --noEmit`, `npm run lint`, `npm run build` (
 - Commit: `feat(ui): public and auth pages (static)`
 
 ## M3 - Database
-- [ ] Tell the user to run `supabase/schema.sql` in the Supabase SQL Editor (you cannot do it yourself); wait for confirmation or continue with typed assumptions
-- [ ] `src/types/database.ts`; `lib/supabase/{client,server,admin}.ts`; request interceptor with session refresh
-- [ ] Self-check queries from `docs/02` section 8 run successfully (via a temporary script or the user)
+- [x] Tell the user to run `supabase/schema.sql` in the Supabase SQL Editor (you cannot do it yourself); wait for confirmation or continue with typed assumptions
+- [x] `src/types/database.ts`; `lib/supabase/{client,server,admin}.ts`; request interceptor with session refresh
+- [x] Self-check queries from `docs/02` section 8 run successfully (via a temporary script or the user)
 - Commit: `feat(db): supabase clients and types`
 
 ## M4 - Authentication and roles
