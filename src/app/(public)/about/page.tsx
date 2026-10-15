@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import { GoldDivider } from '@/components/ui/gold-divider';
-import { HOTEL } from '@/lib/constants';
 
 export default function AboutPage() {
   return (
