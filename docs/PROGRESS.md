@@ -31,7 +31,6 @@
 
 ## NOT DONE
 
-- M2  - Public pages static (Landing, Kamar, Detail, About, Contact, Auth, 404/403)
 - M3  - Database types + Supabase clients + interceptor
 - M4  - Authentication (login/register/forgot/reset) + roles + route protection
 - M5  - Room search with live DB data
