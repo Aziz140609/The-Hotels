@@ -37,7 +37,7 @@ export const registerSchema = z
     password,
     konfirmasi: z.string().min(1, 'Wajib diisi'),
     setuju: z.literal(true, {
-      errorMap: () => ({ message: 'Anda harus menyetujui syarat' }),
+      message: 'Anda harus menyetujui syarat',
     }),
   })
   .refine((v) => v.password === v.konfirmasi, {
@@ -80,17 +80,17 @@ export const changePasswordSchema = z
 export const searchParamsSchema = z.object({
   checkin: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
   checkout: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
-  guests: z.coerce.number().int().min(1).max(10).optional(),
-  type: z.coerce.number().int().positive().optional(),
+  guests: z.coerce.number().min(1).max(10).optional(),
+  type: z.coerce.number().positive().optional(),
   price: z.enum(['lt500', '500-800', 'gt800']).optional(),
   sort: z.enum(['asc', 'desc']).optional(),
 });
 
 export const bookingInputSchema = z.object({
-  roomTypeId: z.number().int().positive(),
+  roomTypeId: z.number().positive(),
   checkIn: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Tanggal tidak valid'),
   checkOut: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Tanggal tidak valid'),
-  guests: z.number().int().min(1).max(10)),
+  guests: z.number().min(1).max(10),
 });
 
 export const bookingGuestSchema = z.object({
@@ -103,15 +103,15 @@ export const bookingGuestSchema = z.object({
 export const roomTypeSchema = z.object({
   nama: z.string().trim().min(2).max(50),
   deskripsi: z.string().trim().max(1000).optional(),
-  harga_per_malam: z.number().int().min(50_000).max(50_000_000),
-  kapasitas: z.number().int().min(1).max(10)),
+  harga_per_malam: z.number().int().min(50000).max(50000000),
+  kapasitas: z.number().min(1).max(10),
   fasilitas: z.array(z.string().trim().min(1).max(30)).max(15),
   foto: z.any().optional(),
 });
 
 export const roomSchema = z.object({
   nomor_kamar: z.string().regex(/^[A-Za-z0-9-]{1,10}$/, 'Nomor kamar tidak valid'),
-  room_type_id: z.number().int().positive(),
+  room_type_id: z.number().positive(),
   lantai: z.number().int().min(0).max(50).optional(),
   status: z.enum(['tersedia', 'perawatan']),
 });
@@ -132,7 +132,7 @@ export const adminUserEditSchema = z.object({
 
 export const bookingStatusSchema = z.object({
   bookingId: z.number().int().positive(),
-  status: z.enum(['dikonfirmasi', 'checked_in', 'selesai', 'dibatalkan']),
+  status: z.enum(['dikonfirmasi', 'checked_in', 'selesai', 'dibatalkan'] as const),
 });
 
 export const contactSchema = z.object({
@@ -146,9 +146,7 @@ export const contactSchema = z.object({
 export const reportFilterSchema = z.object({
   from: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
   to: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
-  status: z
-    .enum(['pending', 'dikonfirmasi', 'checked_in', 'selesai', 'dibatalkan'])
-    .optional(),
+  status: z.enum(['pending', 'dikonfirmasi', 'checked_in', 'selesai', 'dibatalkan'] as const).optional(),
 });
 
 export type RegisterInput = z.infer<typeof registerSchema>;
