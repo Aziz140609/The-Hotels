@@ -11,9 +11,9 @@ After every milestone: run `npx tsc --noEmit`, `npm run lint`, `npm run build` (
 - Commit: `chore: bootstrap project`
 
 ## M1 - Design system and layouts (`docs/01` steps A-C)
-- [ ] `globals.css`, Tailwind tokens, fonts via `next/font`
-- [ ] UI primitives, `PublicNavbar`, `PublicFooter`, `MobileDrawer`, `AdminSidebar/Topbar`, `SplitAuthLayout`
-- [ ] Temporary `/dev/ui` page showing all primitives (delete in M14)
+- [x] `globals.css`, Tailwind tokens, fonts via `next/font`
+- [x] UI primitives, `PublicNavbar`, `PublicFooter`, `MobileDrawer`, `AdminSidebar/Topbar`, `SplitAuthLayout`
+- [x] Temporary `/dev/ui` page showing all primitives (delete in M14)
 - Commit: `feat(ui): design system and layouts`
 
 ## M2 - Public pages with static data (`docs/01` step D)
