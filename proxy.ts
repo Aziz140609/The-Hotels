@@ -34,6 +34,7 @@ export async function updateSession(request: NextRequest) {
   const isUserRoute =
     request.nextUrl.pathname.startsWith('/akun') ||
     request.nextUrl.pathname.startsWith('/booking');
+  void isUserRoute;
   const isAuthRoute =
     request.nextUrl.pathname.startsWith('/login') ||
     request.nextUrl.pathname.startsWith('/register');
