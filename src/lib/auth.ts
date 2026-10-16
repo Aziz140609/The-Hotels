@@ -45,6 +45,22 @@ export async function getCurrentUser() {
   return user;
 }
 
+export async function getAdminOrNull() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return null;
+
+  const { data } = (await supabase
+    .from('profiles')
+    .select('role')
+    .eq('id', user.id)
+    .single()) as { data: { role: string } | null };
+
+  return data?.role === 'admin' ? user : null;
+}
+
 export interface SessionUser {
   id: string;
   email: string;
