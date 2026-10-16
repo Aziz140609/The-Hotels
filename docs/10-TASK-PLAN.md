@@ -71,7 +71,7 @@ After every milestone: run `npx tsc --noEmit`, `npm run lint`, `npm run build` (
 - Commit: `feat(admin): crud for room types, rooms, users, bookings`
 
 ## M11 - Reports
-- [ ] `/admin/laporan` filters + summary + table; print route; PDF export; Excel export route (`docs/08`)
+- [x] `/admin/laporan` filters + summary + table; print route; PDF export; Excel export route (`docs/08`)
 - Commit: `feat(admin): reports with print, pdf and excel`
 
 ## M12 - Contact form and remaining pages

@@ -91,11 +91,18 @@
 - next.config images.remotePatterns for supabase storage
 - tsc OK / lint OK / build OK
 
+### M11 - Reports
+- lib/reports/report-data.ts (rows + report_summary RPC, cap 5000)
+- /admin/laporan: filters, 4 summary figures, paginated table, total paid footer
+- PDF export via dynamic jspdf + jspdf-autotable (A4 landscape, page numbers)
+- /admin/laporan/cetak: white A4 landscape print route with signature block
+- /api/admin/laporan/export: exceljs xlsx (Laporan + Ringkasan sheets, real types, SUM formula)
+- tsc OK / lint OK / build OK
+
 ## NOT DONE
 
 - M5  - Remaining: landing room types + count from DB, login-required popup
 - M7  - Remaining: unit tests, manual sandbox test (needs Midtrans keys + tunnel)
-- M11 - Reports (print/PDF/Excel)
 - M13 - Hardening (CSP, rate limits, audit)
 - M14 - QA + FINAL-REPORT + README
 
