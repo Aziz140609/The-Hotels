@@ -34,12 +34,11 @@ export async function updateSession(request: NextRequest) {
   const isUserRoute =
     request.nextUrl.pathname.startsWith('/akun') ||
     request.nextUrl.pathname.startsWith('/booking');
-  void isUserRoute;
   const isAuthRoute =
     request.nextUrl.pathname.startsWith('/login') ||
     request.nextUrl.pathname.startsWith('/register');
 
-  if (isAdminRoute && !user) {
+  if ((isAdminRoute || isUserRoute) && !user) {
     const url = request.nextUrl.clone();
     url.pathname = '/login';
     url.searchParams.set('next', request.nextUrl.pathname);
