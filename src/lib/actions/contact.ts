@@ -21,7 +21,7 @@ export async function submitContact(
 
   const hdrs = await headers();
   const ip = hdrs.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
-  if (!checkRateLimit(`contact:${ip}`, 5, 60_000)) {
+  if (!checkRateLimit(`contact:${ip}`, 5, 3_600_000)) {
     return { ok: false, code: 'RATE_LIMITED', message: 'Terlalu banyak pesan. Tunggu beberapa saat lalu coba lagi.' };
   }
 

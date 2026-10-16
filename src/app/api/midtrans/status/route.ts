@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { createCoreApiClient } from '@/lib/midtrans';
 import { applyMidtransStatus, type NormalizedStatus } from '@/lib/payments/apply-status';
+import { checkRateLimit } from '@/lib/rate-limit';
 import type { Json } from '@/types/database';
 
 const STALE_MS = 10_000;
@@ -11,6 +12,10 @@ export async function GET(request: NextRequest) {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) {
     return NextResponse.json({ ok: false, code: 'UNAUTHENTICATED', message: 'Silakan masuk terlebih dahulu.' }, { status: 401 });
+  }
+
+  if (!checkRateLimit(`status:${user.id}`, 60, 600_000)) {
+    return NextResponse.json({ ok: false, code: 'RATE_LIMITED', message: 'Terlalu banyak permintaan status.' }, { status: 429 });
   }
 
   const bookingId = Number(request.nextUrl.searchParams.get('bookingId'));

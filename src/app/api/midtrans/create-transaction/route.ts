@@ -3,6 +3,7 @@ import { createClient } from '@/lib/supabase/server';
 import { createAdminClient } from '@/lib/supabase/admin';
 import { createSnapClient } from '@/lib/midtrans';
 import { mapError } from '@/lib/errors';
+import { checkRateLimit } from '@/lib/rate-limit';
 
 interface BookingRow {
   id: number;
@@ -50,6 +51,10 @@ export async function POST(request: NextRequest) {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) {
     return NextResponse.json({ ok: false, code: 'UNAUTHENTICATED', message: 'Silakan masuk terlebih dahulu.' }, { status: 401 });
+  }
+
+  if (!checkRateLimit(`create-tx:${user.id}`, 10, 600_000)) {
+    return NextResponse.json({ ok: false, code: 'RATE_LIMITED', message: 'Terlalu banyak permintaan pembayaran. Tunggu sebentar.' }, { status: 429 });
   }
 
   const { data, error } = await supabase

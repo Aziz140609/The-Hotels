@@ -1,10 +1,12 @@
 'use server';
 
 import { redirect } from 'next/navigation';
+import { headers } from 'next/headers';
 import { createClient } from '@/lib/supabase/server';
 import type { ActionResult } from '@/lib/errors';
 import { mapError } from '@/lib/errors';
 import { sanitizeRedirect } from '@/lib/redirect';
+import { checkRateLimit } from '@/lib/rate-limit';
 import {
   registerSchema,
   loginSchema,
@@ -14,12 +16,21 @@ import {
   changePasswordSchema,
 } from '@/lib/validators';
 
+async function clientIp(): Promise<string> {
+  const hdrs = await headers();
+  return hdrs.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
+}
+
 export async function signIn(
   input: Record<string, unknown>
 ): Promise<ActionResult<{ redirectTo: string }>> {
   const parsed = loginSchema.safeParse(input);
   if (!parsed.success) {
     return { ok: false, code: 'VALIDATION', message: 'Periksa kembali data Anda.', fieldErrors: parsed.error.flatten().fieldErrors };
+  }
+
+  if (!checkRateLimit(`login:${await clientIp()}`, 10, 300_000)) {
+    return { ok: false, code: 'RATE_LIMITED', message: 'Terlalu banyak percobaan masuk. Tunggu beberapa menit lalu coba lagi.' };
   }
 
   const supabase = await createClient();
@@ -53,6 +64,10 @@ export async function signUp(
   const parsed = registerSchema.safeParse(input);
   if (!parsed.success) {
     return { ok: false, code: 'VALIDATION', message: 'Periksa kembali data Anda.', fieldErrors: parsed.error.flatten().fieldErrors };
+  }
+
+  if (!checkRateLimit(`register:${await clientIp()}`, 10, 3_600_000)) {
+    return { ok: false, code: 'RATE_LIMITED', message: 'Terlalu banyak pendaftaran. Tunggu beberapa saat lalu coba lagi.' };
   }
 
   const supabase = await createClient();
