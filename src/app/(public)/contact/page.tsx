@@ -1,5 +1,6 @@
 import { HOTEL } from '@/lib/constants';
 import { MapPin, Phone, Mail } from 'lucide-react';
+import { ContactForm } from './ContactForm';
 
 export default function ContactPage() {
   return (
@@ -19,35 +20,7 @@ export default function ContactPage() {
         <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-12">
           <div className="lg:col-span-7">
             <h2 className="mb-8 font-serif text-3xl font-normal">Kirim Pesan</h2>
-            <form className="space-y-8">
-              <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-                <label className="block border-b border-gold/50 pb-2 focus-within:border-gold">
-                  <span className="text-[11px] font-medium uppercase tracking-label text-gold">Nama</span>
-                  <input type="text" name="nama" required className="mt-2 w-full bg-transparent font-sans text-[15px] font-light text-ivory placeholder:text-muted-ivory/50 focus:outline-none" placeholder="Nama Anda" />
-                </label>
-                <label className="block border-b border-gold/50 pb-2 focus-within:border-gold">
-                  <span className="text-[11px] font-medium uppercase tracking-label text-gold">Email</span>
-                  <input type="email" name="email" required className="mt-2 w-full bg-transparent font-sans text-[15px] font-light text-ivory placeholder:text-muted-ivory/50 focus:outline-none" placeholder="email@anda.com" />
-                </label>
-              </div>
-              <label className="block border-b border-gold/50 pb-2 focus-within:border-gold">
-                <span className="text-[11px] font-medium uppercase tracking-label text-gold">Subjek</span>
-                <input type="text" name="subjek" required className="mt-2 w-full bg-transparent font-sans text-[15px] font-light text-ivory placeholder:text-muted-ivory/50 focus:outline-none" placeholder="Subjek pesan" />
-              </label>
-              <label className="block border-b border-gold/50 pb-2 focus-within:border-gold">
-                <span className="text-[11px] font-medium uppercase tracking-label text-gold">Pesan</span>
-                <textarea name="pesan" required rows={5} className="mt-2 w-full resize-y bg-transparent font-sans text-[15px] font-light text-ivory placeholder:text-muted-ivory/50 focus:outline-none" placeholder="Tulis pesan Anda di sini..." />
-              </label>
-              <label className="hidden" aria-hidden="true">
-                <span>Website</span>
-                <input type="text" name="website" tabIndex={-1} autoComplete="off" />
-              </label>
-              <div>
-                <button type="submit" className="inline-flex items-center justify-center bg-gold px-8 py-3.5 font-sans text-[12px] font-medium uppercase tracking-label text-emerald-900 transition-colors duration-300 hover:bg-gold/90">
-                  Kirim Pesan
-                </button>
-              </div>
-            </form>
+            <ContactForm />
           </div>
 
           <aside className="lg:col-span-5">
