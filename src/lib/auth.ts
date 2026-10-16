@@ -1,4 +1,4 @@
-import { redirect } from 'next/navigation';
+import { redirect, forbidden } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
 
 export async function requireUser() {
@@ -31,7 +31,7 @@ export async function requireAdmin() {
     .single() as { data: { role: string } | null };
 
   if (profile?.role !== 'admin') {
-    redirect('/403');
+    forbidden();
   }
 
   return user;
@@ -43,4 +43,32 @@ export async function getCurrentUser() {
     data: { user },
   } = await supabase.auth.getUser();
   return user;
+}
+
+export interface SessionUser {
+  id: string;
+  email: string;
+  nama_lengkap: string;
+  role: 'admin' | 'user';
+}
+
+export async function getSessionUser(): Promise<SessionUser | null> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return null;
+
+  const { data } = await supabase
+    .from('profiles')
+    .select('nama_lengkap, role')
+    .eq('id', user.id)
+    .single();
+
+  return {
+    id: user.id,
+    email: user.email ?? '',
+    nama_lengkap: data?.nama_lengkap ?? user.email ?? 'Pengguna',
+    role: data?.role === 'admin' ? 'admin' : 'user',
+  };
 }
