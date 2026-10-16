@@ -1,6 +1,7 @@
 'use server';
 
 import { createClient } from '@/lib/supabase/server';
+import { callRpc } from '@/lib/supabase/rpc';
 import type { ActionResult } from '@/lib/errors';
 import { searchParamsSchema } from '@/lib/validators';
 import { mapError } from '@/lib/errors';
@@ -13,11 +14,6 @@ interface SearchRoomTypesParams {
   p_min_price: number | null;
   p_max_price: number | null;
   p_sort: string;
-}
-
-function callRpc<T>(supabase: Awaited<ReturnType<typeof createClient>>, name: string, params: Record<string, unknown>) {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return (supabase as any).rpc(name, params) as Promise<{ data: T | null; error: unknown }>;
 }
 
 export async function searchRoomTypes(

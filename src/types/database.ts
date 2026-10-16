@@ -327,6 +327,40 @@ export type Database = {
         Args: { p_booking_id: number };
         Returns: Database['public']['Tables']['bookings']['Row'];
       };
+      report_summary: {
+        Args: { p_from: string; p_to: string };
+        Returns: {
+          total_booking: number;
+          total_pendapatan: number;
+          okupansi_persen: number;
+          total_dibatalkan: number;
+        }[];
+      };
+      admin_dashboard_stats: {
+        Args: Record<PropertyKey, never>;
+        Returns: {
+          booking_hari_ini: number;
+          pendapatan_bulan_ini: number;
+          okupansi_persen: number;
+          menunggu_pembayaran: number;
+        }[];
+      };
+      admin_revenue_series: {
+        Args: { p_days?: number };
+        Returns: {
+          tanggal: string;
+          pendapatan: number;
+        }[];
+      };
+      admin_room_type_occupancy_today: {
+        Args: Record<PropertyKey, never>;
+        Returns: {
+          room_type_id: number;
+          nama: string;
+          total: number;
+          terisi: number;
+        }[];
+      };
     };
     Enums: Record<string, never>;
     CompositeTypes: Record<string, never>;
