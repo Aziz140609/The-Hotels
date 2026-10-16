@@ -65,11 +65,17 @@
 - tsc OK / lint OK / build OK
 - (unit tests + manual sandbox test pending)
 
+### M8 - User booking history
+- /akun/booking list with search (kode), status filter, pagination (10/page)
+- cancel flow (server-side guard + Midtrans cancel best effort), resume payment
+- /booking/[id]/bukti printable proof + PrintButton
+- live /kamar/[id] detail page with BookingForm wired to createBooking
+- tsc OK / lint OK / build OK
+
 ## NOT DONE
 
-- M5  - Remaining: landing room types + count from DB, detail page by id live data, login-required popup
+- M5  - Remaining: landing room types + count from DB, login-required popup
 - M7  - Remaining: unit tests, manual sandbox test (needs Midtrans keys + tunnel)
-- M8  - User booking history + cancel + proof
 - M9  - Admin dashboard
 - M10 - Admin CRUD (tipe kamar, kamar, pengguna, booking)
 - M11 - Reports (print/PDF/Excel)

@@ -55,8 +55,8 @@ After every milestone: run `npx tsc --noEmit`, `npm run lint`, `npm run build` (
 - Commit: `feat(payment): midtrans sandbox integration`
 
 ## M8 - User booking history
-- [ ] `/akun/booking` list/search/filter/pagination, detail modal, cancel flow (+ Midtrans cancel), resume payment
-- [ ] `/booking/[id]/bukti` printable proof
+- [x] `/akun/booking` list/search/filter/pagination, detail (link to status page), cancel flow (+ Midtrans cancel), resume payment
+- [x] `/booking/[id]/bukti` printable proof
 - Commit: `feat(account): booking history, cancel, proof`
 
 ## M9 - Admin: dashboard
