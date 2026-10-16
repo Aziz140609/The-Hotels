@@ -75,7 +75,7 @@ After every milestone: run `npx tsc --noEmit`, `npm run lint`, `npm run build` (
 - Commit: `feat(admin): reports with print, pdf and excel`
 
 ## M12 - Contact form and remaining pages
-- [ ] `submitContact` (honeypot, rate limit, service-role insert), success state; About and static content polish
+- [x] `submitContact` (honeypot, rate limit, service-role insert), success state; About and static content polish
 - Commit: `feat(contact): contact form`
 
 ## M13 - Hardening

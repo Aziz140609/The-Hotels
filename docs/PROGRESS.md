@@ -72,6 +72,11 @@
 - live /kamar/[id] detail page with BookingForm wired to createBooking
 - tsc OK / lint OK / build OK
 
+### M12 - Contact form
+- lib/actions/contact.ts (honeypot, IP rate limit 5/min, service-role insert into messages)
+- /contact ContactForm client (validation, success state, toast errors)
+- tsc OK / lint OK / build OK
+
 ## NOT DONE
 
 - M5  - Remaining: landing room types + count from DB, login-required popup
@@ -79,7 +84,6 @@
 - M9  - Admin dashboard
 - M10 - Admin CRUD (tipe kamar, kamar, pengguna, booking)
 - M11 - Reports (print/PDF/Excel)
-- M12 - Contact form
 - M13 - Hardening (CSP, rate limits, audit)
 - M14 - QA + FINAL-REPORT + README
 
