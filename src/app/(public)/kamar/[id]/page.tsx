@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { GoldDivider } from '@/components/ui/gold-divider';
 import { BookingForm } from '@/components/features/booking-form';
 import { createClient } from '@/lib/supabase/server';
+import { getSessionUser } from '@/lib/auth';
 import { MOCK_GALLERY } from '@/components/features/mock-data';
 import { formatRupiah } from '@/lib/format';
 
@@ -44,6 +45,7 @@ export default async function KamarDetailPage({ params, searchParams }: PageProp
 
   const foto = room.foto_url || `/images/room-${room.nama.toLowerCase().split(' ')[0]}.svg`;
   const guests = sp.guests ? Number(sp.guests) : 1;
+  const user = await getSessionUser();
   const showKw = room.kapasitas <= 2 ? 'King Size' : room.kapasitas === 3 ? 'Grand King' : '2 King Master';
   const showLuas = room.kapasitas <= 2 ? '42 m²' : room.kapasitas === 3 ? '65 m²' : '110 m²';
   const showView = room.kapasitas <= 2 ? 'Inner Zen Courtyard' : room.kapasitas === 3 ? 'Taman Tropis Privat' : 'Plunge Pool & Paviliun';
@@ -111,6 +113,7 @@ export default async function KamarDetailPage({ params, searchParams }: PageProp
                 initialCheckIn={sp.checkin}
                 initialCheckOut={sp.checkout}
                 initialGuests={guests}
+                isAuthenticated={Boolean(user)}
               />
 
               <div className="mt-6">

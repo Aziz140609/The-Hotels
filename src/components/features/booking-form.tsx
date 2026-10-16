@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { format, differenceInCalendarDays } from 'date-fns';
 import { CalendarDays, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Dialog } from '@/components/ui/dialog';
 import { formatRupiah } from '@/lib/format';
 import { createBooking } from '@/lib/actions/bookings';
 import { toast } from 'sonner';
@@ -16,6 +17,7 @@ interface BookingFormProps {
   initialCheckIn?: string;
   initialCheckOut?: string;
   initialGuests?: number;
+  isAuthenticated?: boolean;
 }
 
 export function BookingForm({
@@ -25,6 +27,7 @@ export function BookingForm({
   initialCheckIn,
   initialCheckOut,
   initialGuests,
+  isAuthenticated = false,
 }: BookingFormProps) {
   const router = useRouter();
   const today = useMemo(() => format(new Date(), 'yyyy-MM-dd'), []);
@@ -38,6 +41,7 @@ export function BookingForm({
   const [checkOut, setCheckOut] = useState(initialCheckOut || tomorrow);
   const [guests, setGuests] = useState(initialGuests ?? 1);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showAuthDialog, setShowAuthDialog] = useState(false);
 
   const nights = useMemo(() => {
     const a = new Date(checkIn);
@@ -48,10 +52,20 @@ export function BookingForm({
 
   const total = nights * hargaPerMalam;
 
+  const params = new URLSearchParams({ checkin: checkIn, checkout: checkOut, guests: String(guests) });
+  const nextUrl = `/kamar/${roomTypeId}?${params.toString()}`;
+  const loginHref = `/login?next=${encodeURIComponent(nextUrl)}`;
+  const registerHref = `/register?next=${encodeURIComponent(nextUrl)}`;
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (nights <= 0) {
       toast.error('Tanggal check-out harus setelah check-in.');
+      return;
+    }
+
+    if (!isAuthenticated) {
+      setShowAuthDialog(true);
       return;
     }
 
@@ -60,7 +74,8 @@ export function BookingForm({
 
     if (!result.ok) {
       if (result.code === 'UNAUTHENTICATED') {
-        router.push(`/login?next=${encodeURIComponent(`/kamar/${roomTypeId}`)}`);
+        setShowAuthDialog(true);
+        setIsSubmitting(false);
         return;
       }
       toast.error(result.message);
@@ -125,6 +140,20 @@ export function BookingForm({
         )}
       </Button>
       <p className="text-center text-[11px] text-muted-ivory">Anda akan diarahkan ke halaman pembayaran</p>
+
+      <Dialog open={showAuthDialog} onClose={() => setShowAuthDialog(false)} title="Masuk untuk Melanjutkan">
+        <p className="mb-6 text-[15px] font-light leading-6 text-muted-ivory">
+          Anda perlu masuk ke akun terlebih dahulu untuk membuat reservasi. Tanggal yang Anda pilih akan tetap tersimpan.
+        </p>
+        <div className="flex flex-col gap-3 sm:flex-row">
+          <Button type="button" onClick={() => router.push(loginHref)} className="flex-1 py-3">
+            Masuk
+          </Button>
+          <Button type="button" variant="outline" onClick={() => router.push(registerHref)} className="flex-1 py-3">
+            Daftar Akun
+          </Button>
+        </div>
+      </Dialog>
     </form>
   );
 }
