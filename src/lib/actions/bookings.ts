@@ -4,6 +4,7 @@ import { createClient } from '@/lib/supabase/server';
 import type { ActionResult } from '@/lib/errors';
 import { bookingInputSchema, bookingGuestSchema } from '@/lib/validators';
 import { mapError } from '@/lib/errors';
+import { createCoreApiClient } from '@/lib/midtrans';
 
 interface BookingRow {
   id: number;
@@ -114,9 +115,28 @@ export async function cancelBooking(
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return { ok: false, code: 'UNAUTHENTICATED', message: 'Silakan masuk terlebih dahulu.' };
 
+  const { data: pendingPayments } = await supabase
+    .from('payments')
+    .select('order_id, transaction_status')
+    .eq('booking_id', bookingId)
+    .eq('transaction_status', 'pending');
+
   const { error } = await callRpc<unknown>(supabase, 'cancel_booking', { p_booking_id: bookingId });
 
   if (error) return { ok: false, ...mapError(error) };
+
+  if (pendingPayments?.length) {
+    try {
+      const core = createCoreApiClient();
+      await Promise.all(
+        pendingPayments.map((p) =>
+          core.transaction.cancel(p.order_id).catch(() => undefined)
+        )
+      );
+    } catch {
+      // best effort only; the booking is already cancelled in the DB
+    }
+  }
 
   return { ok: true, data: undefined };
 }
