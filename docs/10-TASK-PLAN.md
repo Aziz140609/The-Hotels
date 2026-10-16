@@ -64,10 +64,10 @@ After every milestone: run `npx tsc --noEmit`, `npm run lint`, `npm run build` (
 - Commit: `feat(admin): dashboard`
 
 ## M10 - Admin: CRUD
-- [ ] Tipe kamar (slide-over form, photo upload to Storage, delete with FK message)
-- [ ] Kamar (maintenance warning), Pengguna (create/edit/delete via service role, self-protection)
-- [ ] Booking management (search/filter, valid status actions, detail panel, delete cancelled)
-- [ ] Shared `ConfirmDialog`, tables with search/pagination, all error mappings
+- [x] Tipe kamar (dialog form, photo upload to Storage, delete with FK message)
+- [x] Kamar (maintenance warning), Pengguna (create/edit/delete via service role, self-protection)
+- [x] Booking management (search/filter, valid status actions, detail panel, delete cancelled)
+- [x] Shared `ConfirmDialog`, tables with search/pagination, all error mappings
 - Commit: `feat(admin): crud for room types, rooms, users, bookings`
 
 ## M11 - Reports

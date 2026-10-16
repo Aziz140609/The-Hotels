@@ -83,11 +83,18 @@
 - revenue-chart.tsx (hand-made SVG, 7/30 day toggle), admin-occupancy.tsx, recent bookings table
 - tsc OK / lint OK / build OK
 
+### M10 - Admin CRUD
+- Tipe kamar: admin-room-types.ts actions (create/update/delete, photo upload to `room-photos`), /admin/tipe-kamar + RoomTypeManager (dialog form, facility tags, search)
+- Kamar: admin-rooms.ts actions, /admin/kamar + RoomManager (type/status filters, maintenance warning, delete guard)
+- Booking: admin-bookings.ts actions (status transitions, note, delete only dibatalkan), /admin/booking + BookingTable (search/date/status filters, detail dialog, pagination)
+- Pengguna: admin-users.ts actions (service-role create/edit/delete, self-protection), /admin/pengguna + UserManager
+- next.config images.remotePatterns for supabase storage
+- tsc OK / lint OK / build OK
+
 ## NOT DONE
 
 - M5  - Remaining: landing room types + count from DB, login-required popup
 - M7  - Remaining: unit tests, manual sandbox test (needs Midtrans keys + tunnel)
-- M10 - Admin CRUD (tipe kamar, kamar, pengguna, booking)
 - M11 - Reports (print/PDF/Excel)
 - M13 - Hardening (CSP, rate limits, audit)
 - M14 - QA + FINAL-REPORT + README
