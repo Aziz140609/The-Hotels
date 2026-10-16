@@ -45,6 +45,7 @@ declare module 'midtrans-client' {
   }
 
   export interface TransactionStatusResponse {
+    order_id?: string;
     status_code: string;
     gross_amount: string;
     transaction_status: string;
@@ -52,6 +53,7 @@ declare module 'midtrans-client' {
     payment_type?: string;
     transaction_id?: string;
     transaction_time?: string;
+    settlement_time?: string;
   }
 
   export class CoreApi {
