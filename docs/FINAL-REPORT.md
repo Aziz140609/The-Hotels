@@ -79,8 +79,6 @@ Checks performed:
 - **Runtime RLS/IDOR/concurrency tests pending**: need a live Supabase project (see `docs/09`).
 - **No automated test runner**: Vitest is not installed; `docs/09` scenarios are documented for
   manual execution.
-- **M5 leftovers**: the landing page still uses mock room-type content and the "login required"
-  popup for anonymous bookings is not implemented (anonymous users are redirected to login).
 - Rate limiting is in-memory and per-instance only.
 - `uuid` moderate advisory documented above.
 - `@next/swc-win32-x64-msvc` "not a valid Win32 application" warnings during build are harmless;

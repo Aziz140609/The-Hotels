@@ -34,9 +34,12 @@
 - lib/validators/*, lib/rate-limit.ts, lib/redirect.ts, lib/logger.ts
 - /api/auth/callback, /api/cron/expire-bookings
 
-### M5 - Room search (partial)
+### M5 - Room search
 - searchRoomTypes server action (search_available_room_types RPC)
 - /kamar page + SearchForm + KamarResults
+- landing room types loaded from DB (LandingRoomTypes server component + skeleton, mock removed)
+- login-required dialog on booking form for anonymous users (keeps chosen dates)
+- register now honors `next` redirect (auto-login when confirmation disabled)
 
 ### M4 - Authentication and roles
 - lib/actions/auth.ts (signIn, signUp, signOut, requestPasswordReset, resetPassword, updateProfile, changePassword)
@@ -109,10 +112,9 @@
 
 ## NOT DONE
 
-- M5  - Remaining: landing room types + count from DB, login-required popup
 - M7  - Remaining: unit tests, manual sandbox test (needs Midtrans keys + tunnel)
 - M13 - Remaining: runtime security checklist walkthrough (needs live DB)
-- M14 - QA + FINAL-REPORT + README
+- M14 - Remaining: run test matrix against live Supabase/Midtrans
 
 ## USER RULES
 1. Setiap pembuatan sesuatu -> commit ke git dulu
@@ -121,5 +123,5 @@
 4. Satu milestone satu waktu, verifikasi tsc/lint/build sebelum lanjut
 
 ## CURRENT STATE
-- Done: M0-M4, M5 (partial), M6-M9, M12
-- Next action: M10 - admin CRUD (tipe kamar, kamar, pengguna, booking)
+- Done: M0-M13. M5 leftovers fixed. README + FINAL-REPORT written.
+- Next action: M14 runtime QA against a live Supabase project (needs .env.local + Midtrans sandbox keys)
