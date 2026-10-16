@@ -79,8 +79,8 @@ After every milestone: run `npx tsc --noEmit`, `npm run lint`, `npm run build` (
 - Commit: `feat(contact): contact form`
 
 ## M13 - Hardening
-- [ ] Security headers/CSP, rate limiter, `grep` for secrets in client bundle, `npm audit --omit=dev`
-- [ ] Walk through every item of `docs/06` section 14 and `docs/05` section 9; fix gaps
+- [x] Security headers/CSP, rate limiter, `grep` for secrets in client bundle, `npm audit --omit=dev`
+- [ ] Walk through every item of `docs/06` section 14 and `docs/05` section 9; fix gaps (static checks done; runtime RLS/IDOR checks pending M14)
 - Commit: `chore(security): headers, rate limits, audit`
 
 ## M14 - QA and delivery

@@ -99,11 +99,19 @@
 - /api/admin/laporan/export: exceljs xlsx (Laporan + Ringkasan sheets, real types, SUM formula)
 - tsc OK / lint OK / build OK
 
+### M13 - Hardening (partial)
+- next.config.ts: security headers + CSP (unsafe-eval dev-only), HSTS in production
+- Rate limits: login 10/5min IP, register 10/h IP, contact 5/h IP, create-tx 10/10min user, status 60/10min user
+- instrumentation.ts validates env at startup (skips build phase)
+- Client bundle grep: no server secret names present; only .env.example tracked
+- npm audit --omit=dev: 2 moderate (uuid via exceljs) documented in ASSUMPTIONS
+- Runtime RLS/IDOR checklist deferred to M14
+
 ## NOT DONE
 
 - M5  - Remaining: landing room types + count from DB, login-required popup
 - M7  - Remaining: unit tests, manual sandbox test (needs Midtrans keys + tunnel)
-- M13 - Hardening (CSP, rate limits, audit)
+- M13 - Remaining: runtime security checklist walkthrough (needs live DB)
 - M14 - QA + FINAL-REPORT + README
 
 ## USER RULES
