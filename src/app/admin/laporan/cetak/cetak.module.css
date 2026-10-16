@@ -1,0 +1,44 @@
+@page {
+  size: A4 landscape;
+  margin: 14mm;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 10px;
+}
+
+.table thead {
+  display: table-header-group;
+}
+
+.table tr {
+  break-inside: avoid;
+}
+
+.table th,
+.table td {
+  border: 1px solid #bbb;
+  padding: 3px 4px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.table th {
+  background: #0b2b26;
+  color: #f5f0e6;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 9px;
+}
+
+.num {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.totalRow td {
+  font-weight: bold;
+  background: #f5f0e6;
+}
