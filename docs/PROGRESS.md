@@ -38,6 +38,16 @@
 - searchRoomTypes server action (search_available_room_types RPC)
 - /kamar page + SearchForm + KamarResults
 
+### M4 - Authentication and roles
+- lib/actions/auth.ts (signIn, signUp, signOut, requestPasswordReset, resetPassword, updateProfile, changePassword)
+- Login/Register/Forgot/Reset client forms wired to server actions
+- AccountMenu + auth-aware PublicNavbar/MobileDrawer/PublicShell
+- /akun/profil page (profile + change password)
+- proxy.ts protects /admin, /akun, /booking; forbidden() boundary for non-admin
+- getSessionUser() helper, authInterrupts enabled
+- tsc OK / lint OK / build OK
+- (unit tests deferred until test runner is added)
+
 ### M6 - Booking creation & checkout
 - lib/actions/bookings.ts (createBooking, updateBookingGuest, cancelBooking)
 - /booking/[id] checkout page + BookingCheckout (guest form, summary, countdown, expired state)
@@ -46,13 +56,19 @@
 - /api/midtrans/create-transaction (idempotent snap token)
 - components/features/pay-button.tsx (Snap script + popup)
 - types/snap.d.ts
+
+### M7 - Midtrans payment
+- lib/payments/apply-status.ts (rank guard + booking effects)
+- /api/midtrans/notification (signature verify + server-side status check)
+- /api/midtrans/status (ownership + stale check)
+- /booking/[id]/status page + BookingStatusView (3 states, polling 3s/2m)
 - tsc OK / lint OK / build OK
+- (unit tests + manual sandbox test pending)
 
 ## NOT DONE
 
-- M4  - Authentication wiring (server actions, forms, profile) + role protection  [NEXT]
 - M5  - Remaining: landing room types + count from DB, detail page by id live data, login-required popup
-- M7  - Midtrans: webhook /api/midtrans/notification, status API, status page, applyMidtransStatus
+- M7  - Remaining: unit tests, manual sandbox test (needs Midtrans keys + tunnel)
 - M8  - User booking history + cancel + proof
 - M9  - Admin dashboard
 - M10 - Admin CRUD (tipe kamar, kamar, pengguna, booking)

@@ -29,11 +29,11 @@ After every milestone: run `npx tsc --noEmit`, `npm run lint`, `npm run build` (
 - Commit: `feat(db): supabase clients and types`
 
 ## M4 - Authentication and roles
-- [ ] Sign up, sign in, sign out, forgot/reset password, `/api/auth/callback`
-- [ ] `requireUser()`, `requireAdmin()`, safe `next` redirect sanitizer, role-based redirects
-- [ ] Interceptor protecting `/admin`, `/akun`, `/booking`; 403 page for non-admin
-- [ ] Profile page: update profile, change password (re-auth)
-- [ ] Unit tests: validators, `mapError`, redirect sanitizer
+- [x] Sign up, sign in, sign out, forgot/reset password, `/api/auth/callback`
+- [x] `requireUser()`, `requireAdmin()`, safe `next` redirect sanitizer, role-based redirects
+- [x] Interceptor protecting `/admin`, `/akun`, `/booking`; 403 page for non-admin
+- [x] Profile page: update profile, change password (re-auth)
+- [ ] Unit tests: validators, `mapError`, redirect sanitizer  (deferred: test runner added later)
 - Commit: `feat(auth): login, register, roles and route protection`
 
 ## M5 - Room search (read paths)
@@ -49,8 +49,8 @@ After every milestone: run `npx tsc --noEmit`, `npm run lint`, `npm run build` (
 - Commit: `feat(booking): create booking and checkout`
 
 ## M7 - Midtrans payment
-- [ ] `lib/midtrans.ts`, create-transaction route, Snap button, webhook, status endpoint, status page (3 states), `applyMidtransStatus`
-- [ ] Unit tests for signature/rank/effects
+- [x] `lib/midtrans.ts`, create-transaction route, Snap button, webhook, status endpoint, status page (3 states), `applyMidtransStatus`
+- [ ] Unit tests for signature/rank/effects  (deferred: test runner added later)
 - [ ] Manual sandbox test F8-F10 (tell the user how to run a tunnel and set the Notification URL)
 - Commit: `feat(payment): midtrans sandbox integration`
 
