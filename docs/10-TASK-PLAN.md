@@ -60,7 +60,7 @@ After every milestone: run `npx tsc --noEmit`, `npm run lint`, `npm run build` (
 - Commit: `feat(account): booking history, cancel, proof`
 
 ## M9 - Admin: dashboard
-- [ ] Stats, revenue chart (7/30 days; use a lightweight chart lib or hand-made SVG in gold), recent bookings, occupancy by type
+- [x] Stats, revenue chart (7/30 days; SVG in gold), recent bookings, occupancy by type
 - Commit: `feat(admin): dashboard`
 
 ## M10 - Admin: CRUD

@@ -77,11 +77,16 @@
 - /contact ContactForm client (validation, success state, toast errors)
 - tsc OK / lint OK / build OK
 
+### M9 - Admin dashboard
+- /admin layout (requireAdmin guard) + AdminShell + sidebar (added Kamar link)
+- admin_dashboard_stats, admin_revenue_series, admin_room_type_occupancy_today RPCs typed
+- revenue-chart.tsx (hand-made SVG, 7/30 day toggle), admin-occupancy.tsx, recent bookings table
+- tsc OK / lint OK / build OK
+
 ## NOT DONE
 
 - M5  - Remaining: landing room types + count from DB, login-required popup
 - M7  - Remaining: unit tests, manual sandbox test (needs Midtrans keys + tunnel)
-- M9  - Admin dashboard
 - M10 - Admin CRUD (tipe kamar, kamar, pengguna, booking)
 - M11 - Reports (print/PDF/Excel)
 - M13 - Hardening (CSP, rate limits, audit)
@@ -94,5 +99,5 @@
 4. Satu milestone satu waktu, verifikasi tsc/lint/build sebelum lanjut
 
 ## CURRENT STATE
-- Working tree: M6 changes staged next
-- Next action: commit M6, then implement M4 (auth wiring)
+- Done: M0-M4, M5 (partial), M6-M9, M12
+- Next action: M10 - admin CRUD (tipe kamar, kamar, pengguna, booking)
