@@ -2,13 +2,15 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { FormField } from '@/components/ui/form-field';
 import { Input } from '@/components/ui/input';
 import { signUp } from '@/lib/actions/auth';
 
-export function RegisterForm() {
+export function RegisterForm({ next }: { next?: string }) {
+  const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
@@ -21,6 +23,8 @@ export function RegisterForm() {
     konfirmasi: '',
   });
   const [setuju, setSetuju] = useState(false);
+
+  const loginHref = next ? `/login?next=${encodeURIComponent(next)}` : '/login';
 
   const set = (key: keyof typeof values) => (e: React.ChangeEvent<HTMLInputElement>) =>
     setValues((v) => ({ ...v, [key]: e.target.value }));
@@ -39,6 +43,12 @@ export function RegisterForm() {
       return;
     }
 
+    if (!result.data.needsConfirmation) {
+      router.replace(next && next.startsWith('/') ? next : '/');
+      router.refresh();
+      return;
+    }
+
     setSuccess(true);
     setIsSubmitting(false);
   };
@@ -50,7 +60,7 @@ export function RegisterForm() {
         <p className="text-[13px] text-muted-ivory">
           Kami telah mengirim tautan konfirmasi ke email Anda. Konfirmasi untuk mengaktifkan akun, lalu masuk.
         </p>
-        <Link href="/login" className="inline-block text-gold hover:text-ivory">Ke Halaman Masuk</Link>
+        <Link href={loginHref} className="inline-block text-gold hover:text-ivory">Ke Halaman Masuk</Link>
       </div>
     );
   }
@@ -80,7 +90,7 @@ export function RegisterForm() {
       <Button type="submit" loading={isSubmitting} className="w-full py-4">Daftar</Button>
       <p className="text-center text-[13px] text-muted-ivory">
         Sudah punya akun?{' '}
-        <Link href="/login" className="text-gold hover:text-ivory">Masuk</Link>
+        <Link href={loginHref} className="text-gold hover:text-ivory">Masuk</Link>
       </p>
     </form>
   );
