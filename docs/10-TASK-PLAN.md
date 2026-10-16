@@ -37,15 +37,15 @@ After every milestone: run `npx tsc --noEmit`, `npm run lint`, `npm run build` (
 - Commit: `feat(auth): login, register, roles and route protection`
 
 ## M5 - Room search (read paths)
-- [ ] `searchParamsSchema`, `search_available_room_types` wiring on `/` quick search and `/kamar`
+- [x] `searchParamsSchema`, `search_available_room_types` wiring on `/kamar`
 - [ ] Landing room types and room count from DB; detail page by room type id; date picker; login-required popup
-- [ ] Loading/empty/error states
+- [x] Loading/empty/error states
 - Commit: `feat(rooms): search and detail with live data`
 
 ## M6 - Booking creation and checkout
-- [ ] `createBooking` action (duplicate guard, rpc, error mapping), redirect to checkout
-- [ ] Checkout page: guest form (`updateBookingGuest`), summary, countdown, expired state
-- [ ] Lazy expiry, `/api/cron/expire-bookings`
+- [x] `createBooking` action (duplicate guard, rpc, error mapping), redirect to checkout
+- [x] Checkout page: guest form (`updateBookingGuest`), summary, countdown, expired state
+- [x] Lazy expiry, `/api/cron/expire-bookings`
 - Commit: `feat(booking): create booking and checkout`
 
 ## M7 - Midtrans payment

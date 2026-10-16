@@ -7,7 +7,6 @@ import { Button } from '@/components/ui/button';
 import { GoldDivider } from '@/components/ui/gold-divider';
 import { EmptyState } from '@/components/ui/empty-state';
 import { formatRupiah } from '@/lib/format';
-import { Skeleton } from '@/components/ui/skeleton';
 import type { ActionResult } from '@/lib/errors';
 
 interface RoomData {
@@ -126,7 +125,6 @@ export function KamarResults({ result, searchParams }: KamarResultsProps) {
 
   const { rooms, searchParams: validatedParams } = result.data;
   const availableRooms = rooms.filter((r) => r.sisa_kamar > 0);
-  const allFull = rooms.length > 0 && availableRooms.length === 0;
 
   const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     params.set('sort', e.target.value);

@@ -9,13 +9,6 @@
 - Folder structure per AGENTS.md
 - design/INDEX.md (18 Stitch screens mapped)
 
-### M2 - Public Pages Static (placeholder data)
-- Landing page with hero, about, room types, facilities, booking steps, location
-- Room search page with mock room cards and detail page
-- About, Contact, Login, Register, Forgot Password, Reset Password pages
-- 404 and 403 error pages
-- 14 placeholder SVG images in public/images/
-
 ### M1 - Design System & Layouts
 - globals.css + Tailwind tokens + fonts (EB Garamond + DM Sans)
 - UI primitives: Button, Input, Textarea, Select, Label, FieldError,
@@ -27,15 +20,39 @@
 - /dev/ui demo page
 - Route group layouts: (public), (auth), (user)
 - Root loading.tsx + error.tsx
+
+### M2 - Public Pages Static
+- Landing page, /kamar, /kamar/[id], about, contact
+- Login, register, lupa-password, reset-password (UI only)
+- 404 and 403 pages
+- 14 placeholder SVG images in public/images/
+
+### M3 - Database
+- src/types/database.ts, lib/supabase/{client,server,admin}.ts
+- proxy.ts session refresh + route guard
+- lib/errors.ts (mapError, ActionResult), lib/auth.ts (requireUser/requireAdmin)
+- lib/validators/*, lib/rate-limit.ts, lib/redirect.ts, lib/logger.ts
+- /api/auth/callback, /api/cron/expire-bookings
+
+### M5 - Room search (partial)
+- searchRoomTypes server action (search_available_room_types RPC)
+- /kamar page + SearchForm + KamarResults
+
+### M6 - Booking creation & checkout
+- lib/actions/bookings.ts (createBooking, updateBookingGuest, cancelBooking)
+- /booking/[id] checkout page + BookingCheckout (guest form, summary, countdown, expired state)
+- /api/booking/[id]/guest (save guest data)
+- lib/midtrans.ts (Snap/CoreApi factory + signature verify)
+- /api/midtrans/create-transaction (idempotent snap token)
+- components/features/pay-button.tsx (Snap script + popup)
+- types/snap.d.ts
 - tsc OK / lint OK / build OK
 
 ## NOT DONE
 
-- M3  - Database types + Supabase clients + interceptor
-- M4  - Authentication (login/register/forgot/reset) + roles + route protection
-- M5  - Room search with live DB data
-- M6  - Booking creation + checkout
-- M7  - Midtrans payment integration
+- M4  - Authentication wiring (server actions, forms, profile) + role protection  [NEXT]
+- M5  - Remaining: landing room types + count from DB, detail page by id live data, login-required popup
+- M7  - Midtrans: webhook /api/midtrans/notification, status API, status page, applyMidtransStatus
 - M8  - User booking history + cancel + proof
 - M9  - Admin dashboard
 - M10 - Admin CRUD (tipe kamar, kamar, pengguna, booking)
@@ -51,6 +68,5 @@
 4. Satu milestone satu waktu, verifikasi tsc/lint/build sebelum lanjut
 
 ## CURRENT STATE
-- Commits this session: 26
-- Working tree: clean
-- Next action: M2 (public pages with static data)
+- Working tree: M6 changes staged next
+- Next action: commit M6, then implement M4 (auth wiring)

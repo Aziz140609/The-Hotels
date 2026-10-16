@@ -4,7 +4,6 @@ import { useRouter } from 'next/navigation';
 import { useState, useMemo } from 'react';
 import { CalendarDays } from 'lucide-react';
 import { format } from 'date-fns';
-import { Button } from '@/components/ui/button';
 
 interface SearchFormProps {
   initialParams: {
@@ -32,7 +31,7 @@ export function SearchForm({ initialParams }: SearchFormProps) {
   const [guests, setGuests] = useState(initialParams.guests || '1');
   const [type, setType] = useState(initialParams.type || '');
   const [price, setPrice] = useState(initialParams.price || '');
-  const [sort, setSort] = useState(initialParams.sort || 'asc');
+  const sort = initialParams.sort || 'asc';
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const minCheckin = format(new Date(), 'yyyy-MM-dd');
