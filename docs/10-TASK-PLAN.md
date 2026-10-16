@@ -38,7 +38,7 @@ After every milestone: run `npx tsc --noEmit`, `npm run lint`, `npm run build` (
 
 ## M5 - Room search (read paths)
 - [x] `searchParamsSchema`, `search_available_room_types` wiring on `/kamar`
-- [ ] Landing room types and room count from DB; detail page by room type id; date picker; login-required popup
+- [x] Landing room types and room count from DB; detail page by room type id; date picker; login-required popup
 - [x] Loading/empty/error states
 - Commit: `feat(rooms): search and detail with live data`
 
@@ -84,10 +84,10 @@ After every milestone: run `npx tsc --noEmit`, `npm run lint`, `npm run build` (
 - Commit: `chore(security): headers, rate limits, audit`
 
 ## M14 - QA and delivery
-- [ ] Run all tests in `docs/09` (unit, DB, concurrency, RLS, functional matrix, responsive); record results
-- [ ] Delete `/dev/ui` and any temporary scripts not needed; remove unused code/deps
-- [ ] Write `README.md` (setup, env vars, how to run, Supabase steps, Midtrans tunnel steps, admin bootstrap) and `docs/FINAL-REPORT.md` (+ demo script from `docs/09` section 8)
-- [ ] Final gates: `tsc`, `lint`, `test`, `build` all green
+- [ ] Run all tests in `docs/09` (unit, DB, concurrency, RLS, functional matrix, responsive); record results (blocked: needs live Supabase + Midtrans)
+- [x] Delete `/dev/ui` and any temporary scripts not needed; remove unused code/deps
+- [x] Write `README.md` (setup, env vars, how to run, Supabase steps, Midtrans tunnel steps, admin bootstrap) and `docs/FINAL-REPORT.md` (+ demo script from `docs/09` section 8)
+- [x] Final gates: `tsc`, `lint`, `test`, `build` all green (no test runner installed; tsc/lint/build green)
 - Commit: `docs: final report and readme`
 
 ## Reporting format after each milestone (keep it short)
