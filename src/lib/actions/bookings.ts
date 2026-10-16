@@ -35,14 +35,24 @@ export async function createBooking(
 
   const { roomTypeId, checkIn, checkOut, guests } = parsed.data;
 
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('nama_lengkap, no_hp')
+    .eq('id', user.id)
+    .single();
+
+  const nama = profile?.nama_lengkap?.trim() || user.email || 'Tamu';
+  const email = user.email ?? '';
+  const phone = profile?.no_hp?.replace(/[\s-]/g, '') || '08000000000';
+
   const rpcParams = {
     p_room_type_id: roomTypeId,
     p_check_in: checkIn,
     p_check_out: checkOut,
     p_jumlah_tamu: guests,
-    p_nama_tamu: user.user_metadata?.nama_lengkap ?? user.email ?? 'Tamu',
-    p_email_tamu: user.email ?? '',
-    p_no_hp_tamu: user.user_metadata?.no_hp ?? '',
+    p_nama_tamu: nama,
+    p_email_tamu: email,
+    p_no_hp_tamu: phone,
     p_catatan: '',
   };
 
