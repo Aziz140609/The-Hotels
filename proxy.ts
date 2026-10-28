@@ -2,7 +2,7 @@ import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
 import type { Database } from '@/types/database';
 
-export async function updateSession(request: NextRequest) {
+async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({ request });
 
   const supabase = createServerClient<Database>(
@@ -53,3 +53,21 @@ export async function updateSession(request: NextRequest) {
 
   return supabaseResponse;
 }
+
+// Next.js 16 uses `proxy` as the named export (replaces `middleware`)
+export async function proxy(request: NextRequest) {
+  return updateSession(request);
+}
+
+export const config = {
+  matcher: [
+    /*
+     * Match all request paths except:
+     * - _next/static (static files)
+     * - _next/image (image optimizations)
+     * - favicon.ico, sitemap.xml, robots.txt
+     * - public images
+     */
+    '/((?!_next/static|_next/image|favicon\\.ico|sitemap\\.xml|robots\\.txt|images/).*)',
+  ],
+};
