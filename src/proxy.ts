@@ -54,10 +54,12 @@ async function updateSession(request: NextRequest) {
   return supabaseResponse;
 }
 
-// Next.js 16 uses `proxy` as the named export (replaces `middleware`)
+// Next.js 16 uses `proxy` as the named export or default export
 export async function proxy(request: NextRequest) {
   return updateSession(request);
 }
+
+export default proxy;
 
 export const config = {
   matcher: [
