@@ -128,6 +128,11 @@ export function mapError(e: unknown): {
       };
     }
 
+    const authCode =
+      'code' in e && typeof (e as { code: unknown }).code === 'string'
+        ? (e as { code: string }).code
+        : '';
+
     if (
       message === 'invalid_credentials' ||
       message === 'Invalid login credentials'
@@ -135,6 +140,69 @@ export function mapError(e: unknown): {
       return {
         code: 'UNAUTHENTICATED',
         message: 'Email atau password salah.',
+      };
+    }
+
+    if (
+      message.toLowerCase().includes('email signups are disabled') ||
+      authCode === 'email_provider_disabled' ||
+      authCode === 'signup_disabled'
+    ) {
+      return {
+        code: 'FORBIDDEN',
+        message: 'Pendaftaran akun baru saat ini dinonaktifkan di pengaturan Supabase.',
+      };
+    }
+
+    if (
+      authCode === 'user_already_exists' ||
+      message.toLowerCase().includes('already registered')
+    ) {
+      return {
+        code: 'CONFLICT',
+        message: 'Email sudah terdaftar. Silakan masuk.',
+      };
+    }
+
+    if (
+      authCode === 'weak_password' ||
+      message.toLowerCase().includes('weak password')
+    ) {
+      return {
+        code: 'VALIDATION',
+        message: 'Password terlalu lemah. Gunakan minimal 8 karakter dengan kombinasi huruf dan angka.',
+      };
+    }
+
+    if (
+      authCode === 'over_request_rate_limit' ||
+      authCode === 'over_email_send_rate_limit'
+    ) {
+      return {
+        code: 'RATE_LIMITED',
+        message: 'Terlalu banyak percobaan. Tunggu beberapa menit lalu coba lagi.',
+      };
+    }
+
+    if (
+      authCode === 'otp_expired' ||
+      authCode === 'flow_state_not_found'
+    ) {
+      return {
+        code: 'UNAUTHENTICATED',
+        message: 'Tautan tidak valid atau sudah kedaluwarsa. Silakan minta tautan baru.',
+      };
+    }
+
+    if (
+      authCode === 'session_not_found' ||
+      authCode === 'refresh_token_not_found' ||
+      authCode === 'session_expired' ||
+      message.toLowerCase().includes('jwt expired')
+    ) {
+      return {
+        code: 'UNAUTHENTICATED',
+        message: 'Sesi Anda berakhir. Silakan masuk lagi.',
       };
     }
   }
@@ -145,9 +213,13 @@ export function mapError(e: unknown): {
     'name' in e &&
     (e as { name?: string }).name === 'AuthApiError'
   ) {
+    const message =
+      'message' in e && typeof (e as { message: unknown }).message === 'string'
+        ? (e as { message: string }).message
+        : '';
     return {
       code: 'UNAUTHENTICATED',
-      message: 'Sesi Anda berakhir. Silakan masuk lagi.',
+      message: message || 'Terjadi kesalahan autentikasi. Silakan coba lagi.',
     };
   }
 
