@@ -4,8 +4,6 @@ import { searchRoomTypes } from '@/lib/actions/rooms';
 import { KamarResults } from './KamarResults';
 import { SearchForm } from './SearchForm';
 
-export const dynamic = 'force-dynamic';
-
 export const metadata: Metadata = {
   title: 'Ruangan | The Hotels',
   description: 'Cari dan pesan kamar di The Hotels Surakarta',

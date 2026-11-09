@@ -9,8 +9,6 @@ import { getSessionUser } from '@/lib/auth';
 import { MOCK_GALLERY } from '@/components/features/mock-data';
 import { formatRupiah } from '@/lib/format';
 
-export const dynamic = 'force-dynamic';
-
 export const metadata = {
   title: 'Detail Kamar | The Hotels',
 };

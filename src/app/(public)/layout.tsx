@@ -3,8 +3,6 @@ import { connection } from 'next/server';
 import { PublicShell } from '@/components/layout/public-shell';
 import { getSessionUser } from '@/lib/auth';
 
-export const dynamic = 'force-dynamic';
-
 export default async function PublicLayout({ children }: { children: ReactNode }) {
   await connection();
   const sessionUser = await getSessionUser();
