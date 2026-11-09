@@ -1,3 +1,4 @@
+import { connection } from 'next/server';
 import { requireUser } from '@/lib/auth';
 import { createClient } from '@/lib/supabase/server';
 import { ProfileForm } from './ProfileForm';
@@ -8,6 +9,7 @@ export const metadata = {
 };
 
 export default async function ProfilPage() {
+  await connection();
   const user = await requireUser();
   const supabase = await createClient();
   const { data: profile } = await supabase

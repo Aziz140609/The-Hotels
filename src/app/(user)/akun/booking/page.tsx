@@ -1,3 +1,4 @@
+import { connection } from 'next/server';
 import { requireUser } from '@/lib/auth';
 import { createClient } from '@/lib/supabase/server';
 import { formatInTimeZone } from 'date-fns-tz';
@@ -24,6 +25,7 @@ interface PageProps {
 }
 
 export default async function AkunBookingPage({ searchParams }: PageProps) {
+  await connection();
   const user = await requireUser();
   const sp = await searchParams;
   const supabase = await createClient();

@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import { connection } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { BookingStatusView } from './BookingStatusView';
 
@@ -22,6 +23,7 @@ interface PageProps {
 }
 
 export default async function BookingStatusPage({ params }: PageProps) {
+  await connection();
   const { id } = await params;
   const bookingId = parseInt(id, 10);
   if (!Number.isInteger(bookingId)) notFound();

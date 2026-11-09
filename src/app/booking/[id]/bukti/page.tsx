@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { connection } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { HOTEL } from '@/lib/constants';
 import { formatRupiah, formatDate } from '@/lib/format';
@@ -31,6 +32,7 @@ interface PageProps {
 }
 
 export default async function BuktiPage({ params }: PageProps) {
+  await connection();
   const { id } = await params;
   const bookingId = parseInt(id, 10);
   if (!Number.isInteger(bookingId)) notFound();

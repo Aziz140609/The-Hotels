@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { connection } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { BookingCheckout } from './BookingCheckout';
 
@@ -37,6 +38,7 @@ interface PageProps {
 }
 
 export default async function BookingPage({ params }: PageProps) {
+  await connection();
   const { id } = await params;
   const supabase = await createClient();
 
