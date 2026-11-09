@@ -1,9 +1,13 @@
 import type { ReactNode } from 'react';
+import { connection } from 'next/server';
 import { PublicShell } from '@/components/layout/public-shell';
 import { requireUser } from '@/lib/auth';
 import { createClient } from '@/lib/supabase/server';
 
+export const dynamic = 'force-dynamic';
+
 export default async function UserLayout({ children }: { children: ReactNode }) {
+  await connection();
   await requireUser();
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();

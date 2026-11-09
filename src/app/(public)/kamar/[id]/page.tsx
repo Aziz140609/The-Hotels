@@ -1,12 +1,15 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { connection } from 'next/server';
 import { GoldDivider } from '@/components/ui/gold-divider';
 import { BookingForm } from '@/components/features/booking-form';
 import { createClient } from '@/lib/supabase/server';
 import { getSessionUser } from '@/lib/auth';
 import { MOCK_GALLERY } from '@/components/features/mock-data';
 import { formatRupiah } from '@/lib/format';
+
+export const dynamic = 'force-dynamic';
 
 export const metadata = {
   title: 'Detail Kamar | The Hotels',
@@ -28,6 +31,7 @@ interface PageProps {
 }
 
 export default async function KamarDetailPage({ params, searchParams }: PageProps) {
+  await connection();
   const { id } = await params;
   const sp = await searchParams;
   const roomTypeId = Number(id);

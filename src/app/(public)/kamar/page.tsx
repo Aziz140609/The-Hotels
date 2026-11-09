@@ -1,7 +1,10 @@
 import { Metadata } from 'next';
+import { connection } from 'next/server';
 import { searchRoomTypes } from '@/lib/actions/rooms';
 import { KamarResults } from './KamarResults';
 import { SearchForm } from './SearchForm';
+
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: 'Ruangan | The Hotels',
@@ -20,6 +23,7 @@ interface PageProps {
 }
 
 export default async function KamarPage({ searchParams }: PageProps) {
+  await connection();
   const params = await searchParams;
   const result = await searchRoomTypes(params);
 
