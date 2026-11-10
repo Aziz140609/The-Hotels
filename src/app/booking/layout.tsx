@@ -5,3 +5,4 @@ export default async function BookingLayout({ children }: { children: ReactNode 
   await connection();
   return <>{children}</>;
 }
+
