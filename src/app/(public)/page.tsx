@@ -6,7 +6,16 @@ import { LandingRoomTypes, LandingRoomTypesSkeleton } from '@/components/feature
 import { Button } from '@/components/ui/button';
 import { GoldDivider } from '@/components/ui/gold-divider';
 import { HOTEL } from '@/lib/constants';
-import { MapPin, Clock, Phone } from 'lucide-react';
+import { MapPin, Clock, Phone, Wifi, Waves, Utensils, Sparkles, Car, ConciergeBell } from 'lucide-react';
+
+const FACILITY_ICONS: Record<string, React.ComponentType<{ className?: string; strokeWidth?: number }>> = {
+  WiFi: Wifi,
+  'Kolam Renang': Waves,
+  Restoran: Utensils,
+  Spa: Sparkles,
+  Parkir: Car,
+  'Layanan Kamar': ConciergeBell,
+};
 
 export default function LandingPage() {
   return (
@@ -105,16 +114,21 @@ export default function LandingPage() {
             <div className="mx-auto mt-4 h-px w-16 bg-gold" />
           </div>
           <div className="grid grid-cols-2 border-y border-gold/30 md:grid-cols-3 lg:grid-cols-6">
-            {MOCK_FACILITIES.map((facility) => (
-              <div
-                key={facility.nama}
-                className="flex flex-col items-center justify-center border-l border-gold/30 px-2 py-12 text-center transition-colors duration-300 hover:bg-emerald-900/5 first:border-l-0"
-              >
-                <span className="mb-3 h-8 w-8 bg-gold/20" />
-                <span className="text-[11px] uppercase tracking-[0.2em] text-emerald-900">{facility.nama}</span>
-                <span className="mt-1 text-[11px] font-light text-emerald-900/50">{facility.deskripsi}</span>
-              </div>
-            ))}
+            {MOCK_FACILITIES.map((facility) => {
+              const Icon = FACILITY_ICONS[facility.nama] ?? Sparkles;
+              return (
+                <div
+                  key={facility.nama}
+                  className="flex flex-col items-center justify-center border-l border-gold/30 px-2 py-12 text-center transition-colors duration-300 hover:bg-emerald-900/5 first:border-l-0"
+                >
+                  <div className="mb-3 flex h-8 w-8 items-center justify-center text-gold">
+                    <Icon className="h-6 w-6 text-gold" strokeWidth={1.5} />
+                  </div>
+                  <span className="text-[11px] uppercase tracking-[0.2em] text-emerald-900">{facility.nama}</span>
+                  <span className="mt-1 text-[11px] font-light text-emerald-900/50">{facility.deskripsi}</span>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
