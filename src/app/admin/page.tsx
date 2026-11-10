@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { connection } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { callRpc } from '@/lib/supabase/rpc';
 import { AdminShell } from '@/components/layout/admin-shell';
@@ -40,6 +41,7 @@ interface PageProps {
 }
 
 export default async function AdminDashboardPage({ searchParams }: PageProps) {
+  await connection();
   const sp = await searchParams;
   const days = sp.days === '30' ? 30 : 7;
   const supabase = await createClient();

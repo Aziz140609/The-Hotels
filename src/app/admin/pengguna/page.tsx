@@ -1,3 +1,4 @@
+import { connection } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { requireAdmin } from '@/lib/auth';
 import { AdminShell } from '@/components/layout/admin-shell';
@@ -13,6 +14,7 @@ interface PageProps {
 }
 
 export default async function AdminUsersPage({ searchParams }: PageProps) {
+  await connection();
   const admin = await requireAdmin();
   const sp = await searchParams;
   const supabase = await createClient();

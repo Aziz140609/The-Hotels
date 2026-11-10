@@ -1,4 +1,5 @@
 import { addDays, format, parseISO } from 'date-fns';
+import { connection } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { AdminShell } from '@/components/layout/admin-shell';
 import { PAGE_SIZE, BOOKING_STATUSES, type BookingStatus } from '@/lib/constants';
@@ -38,6 +39,7 @@ interface PageProps {
 }
 
 export default async function AdminBookingPage({ searchParams }: PageProps) {
+  await connection();
   const sp = await searchParams;
   const supabase = await createClient();
 

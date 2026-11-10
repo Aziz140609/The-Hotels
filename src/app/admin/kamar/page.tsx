@@ -1,4 +1,5 @@
 import { formatInTimeZone } from 'date-fns-tz';
+import { connection } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { AdminShell } from '@/components/layout/admin-shell';
 import { TIMEZONE, type RoomStatus } from '@/lib/constants';
@@ -18,6 +19,7 @@ interface RawRoom {
 }
 
 export default async function AdminRoomsPage() {
+  await connection();
   const supabase = await createClient();
   const today = formatInTimeZone(new Date(), TIMEZONE, 'yyyy-MM-dd');
 

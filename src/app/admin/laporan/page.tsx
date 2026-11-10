@@ -1,4 +1,5 @@
 import { formatInTimeZone } from 'date-fns-tz';
+import { connection } from 'next/server';
 import { AdminShell } from '@/components/layout/admin-shell';
 import { TIMEZONE } from '@/lib/constants';
 import { reportFilterSchema } from '@/lib/validators';
@@ -14,6 +15,7 @@ interface PageProps {
 }
 
 export default async function AdminReportPage({ searchParams }: PageProps) {
+  await connection();
   const sp = await searchParams;
   const today = formatInTimeZone(new Date(), TIMEZONE, 'yyyy-MM-dd');
   const firstDay = `${today.slice(0, 7)}-01`;

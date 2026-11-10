@@ -1,3 +1,4 @@
+import { connection } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { AdminShell } from '@/components/layout/admin-shell';
 import { RoomTypeManager, type RoomTypeRow } from './RoomTypeManager';
@@ -7,6 +8,7 @@ export const metadata = {
 };
 
 export default async function AdminRoomTypesPage() {
+  await connection();
   const supabase = await createClient();
   const { data } = await supabase
     .from('room_types')
