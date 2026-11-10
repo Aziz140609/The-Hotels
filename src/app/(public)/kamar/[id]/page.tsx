@@ -45,7 +45,7 @@ export default async function KamarDetailPage({ params, searchParams }: PageProp
   const room = data as RoomTypeRow | null;
   if (!room) notFound();
 
-  const foto = room.foto_url || `/images/room-${room.nama.toLowerCase().split(' ')[0]}.svg`;
+  const foto = room.foto_url || `/images/room-${room.nama.toLowerCase().split(' ')[0]}.png`;
   const guests = sp.guests ? Number(sp.guests) : 1;
   const user = await getSessionUser();
   const showKw = room.kapasitas <= 2 ? 'King Size' : room.kapasitas === 3 ? 'Grand King' : '2 King Master';

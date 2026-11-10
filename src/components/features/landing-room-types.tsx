@@ -15,7 +15,7 @@ interface RoomTypeWithCount {
 
 function fallbackPhoto(nama: string): string {
   const slug = nama.toLowerCase().replace(/\s+/g, '-');
-  return ['standard', 'deluxe', 'suite'].includes(slug) ? `/images/room-${slug}.svg` : '/images/room-standard.svg';
+  return ['standard', 'deluxe', 'suite'].includes(slug) ? `/images/room-${slug}.png` : '/images/room-standard.png';
 }
 
 export async function LandingRoomTypes() {

@@ -15,7 +15,7 @@ export default function AboutPage() {
       <section className="bg-ivory px-6 py-24 text-emerald-900 lg:px-20">
         <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-12">
           <div className="relative aspect-[4/5] overflow-hidden lg:col-span-5">
-            <Image src="/images/about-2.svg" alt="Arsitektur The Hotels" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 40vw" />
+            <Image src="/images/about-2.png" alt="Arsitektur The Hotels" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 40vw" />
           </div>
           <div className="lg:col-span-7 lg:pl-8">
             <span className="mb-2 block text-[11px] font-semibold uppercase tracking-[0.3em] text-gold">Filosofi Kami</span>
@@ -41,7 +41,7 @@ export default function AboutPage() {
           <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
             {['about-1', 'about-2', 'about-3', 'about-4'].map((img, i) => (
               <div key={i} className={`relative overflow-hidden ${i === 0 ? 'col-span-2 row-span-2 aspect-square' : 'aspect-square'}`}>
-                <Image src={`/images/${img}.svg`} alt={`Galeri ${i + 1}`} fill className="object-cover" sizes="(max-width: 768px) 50vw, 25vw" />
+                <Image src={`/images/${img}.png`} alt={`Galeri ${i + 1}`} fill className="object-cover" sizes="(max-width: 768px) 50vw, 25vw" />
               </div>
             ))}
           </div>

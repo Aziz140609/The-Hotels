@@ -43,7 +43,7 @@ interface KamarResultsProps {
 }
 
 function RoomCard({ room, index, searchParams }: { room: RoomData; index: number; searchParams: URLSearchParams }) {
-  const foto = room.foto_url || `/images/room-${room.nama.toLowerCase().replace(' ', '-')}.svg`;
+  const foto = room.foto_url || `/images/room-${room.nama.toLowerCase().replace(' ', '-')}.png`;
   const query = searchParams.toString();
   return (
     <article key={room.id} className={`group grid grid-cols-1 bg-emerald-800/40 shadow-xl lg:grid-cols-12 ${index === 1 ? 'bg-emerald-800/60' : ''}`}>

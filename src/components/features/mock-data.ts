@@ -15,9 +15,9 @@ export const MOCK_BOOKING_STEPS = [
 ];
 
 export const MOCK_GALLERY = [
-  '/images/gallery-1.svg',
-  '/images/gallery-2.svg',
-  '/images/gallery-3.svg',
-  '/images/gallery-4.svg',
-  '/images/gallery-5.svg',
+  '/images/gallery-1.png',
+  '/images/gallery-2.png',
+  '/images/gallery-3.png',
+  '/images/gallery-4.png',
+  '/images/gallery-5.png',
 ];

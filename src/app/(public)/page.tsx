@@ -22,7 +22,7 @@ export default function LandingPage() {
     <main className="bg-emerald-900">
       <section className="relative flex h-screen flex-col items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
-          <Image src="/images/hero.svg" alt="" fill className="object-cover" priority sizes="100vw" />
+          <Image src="/images/hero.png" alt="" fill className="object-cover" priority sizes="100vw" />
           <div className="absolute inset-0 bg-gradient-to-b from-emerald-900/80 via-emerald-900/40 to-emerald-900" />
         </div>
         <div className="relative z-10 flex flex-col items-center px-6 text-center">
@@ -53,7 +53,7 @@ export default function LandingPage() {
       <section className="bg-ivory px-6 py-24 text-emerald-900 lg:px-20" id="tentang-kami">
         <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-12">
           <div className="relative aspect-[4/5] overflow-hidden bg-emerald-800/20 lg:col-span-5">
-            <Image src="/images/about-1.svg" alt="Pavilion Atrium" fill className="transition-transform duration-1000 hover:scale-102 object-cover" sizes="(max-width: 1024px) 100vw, 40vw" />
+            <Image src="/images/about-1.png" alt="Pavilion Atrium" fill className="transition-transform duration-1000 hover:scale-102 object-cover" sizes="(max-width: 1024px) 100vw, 40vw" />
             <div className="absolute bottom-4 left-4 border border-gold/30 bg-emerald-900/85 px-4 py-2">
               <span className="text-[9px] uppercase tracking-[0.2em] text-gold">Pavilion Atrium</span>
             </div>
@@ -208,7 +208,7 @@ export default function LandingPage() {
             </div>
           </div>
           <div className="relative h-[460px] overflow-hidden border border-gold/30 bg-emerald-800/20 lg:col-span-7">
-            <Image src="/images/lobby.svg" alt="Lokasi The Hotels Surakarta" fill className="object-cover grayscale contrast-125 brightness-90" sizes="(max-width: 1024px) 100vw, 60vw" />
+            <Image src="/images/lobby.png" alt="Lokasi The Hotels Surakarta" fill className="object-cover grayscale contrast-125 brightness-90" sizes="(max-width: 1024px) 100vw, 60vw" />
             <div className="pointer-events-none absolute inset-0 bg-emerald-900/20" />
             <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
               <div className="flex flex-col items-center">
