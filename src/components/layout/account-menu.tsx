@@ -35,7 +35,8 @@ export function AccountMenu({ nama, isAdmin }: AccountMenuProps) {
         type="button"
         onClick={() => setOpen((v) => !v)}
         title={nama}
-        className="group relative flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-gold/40 via-emerald-900 to-emerald-950 ring-2 ring-gold/90 ring-offset-2 ring-offset-[#0B1E19] shadow-[0_0_14px_rgba(201,169,110,0.4)] transition-all duration-300 hover:scale-105 hover:ring-gold hover:shadow-[0_0_20px_rgba(201,169,110,0.7)]"
+        className="avatar-circle group relative flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-gold/40 via-emerald-900 to-emerald-950 ring-2 ring-gold/90 ring-offset-2 ring-offset-[#0B1E19] shadow-[0_0_14px_rgba(201,169,110,0.4)] transition-all duration-300 hover:scale-105 hover:ring-gold hover:shadow-[0_0_20px_rgba(201,169,110,0.7)]"
+        style={{ borderRadius: '50%' }}
       >
         <span className="font-serif text-sm font-semibold uppercase text-gold drop-shadow">
           {nama.charAt(0)}

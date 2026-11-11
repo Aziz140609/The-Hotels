@@ -43,7 +43,15 @@
   *,
   *::before,
   *::after {
-    border-radius: 0 !important;
+    border-radius: 0;
+  }
+
+  .capsule-pill {
+    border-radius: 9999px !important;
+  }
+
+  .avatar-circle {
+    border-radius: 50% !important;
   }
 
   html {
