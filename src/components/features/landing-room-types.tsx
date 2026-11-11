@@ -48,18 +48,21 @@ export async function LandingRoomTypes() {
   return (
     <div className="grid grid-cols-1 gap-6 md:grid-cols-3 lg:gap-8">
       {items.map((room) => (
-        <article key={room.id} className="group relative flex flex-col overflow-hidden border border-gold/20 bg-emerald-800/40">
+        <article
+          key={room.id}
+          className="group relative flex flex-col overflow-hidden border border-gold/20 bg-emerald-800/40 transition-all duration-500 ease-out hover:-translate-y-2 hover:border-gold/60 hover:shadow-[0_20px_40px_rgba(0,0,0,0.5)]"
+        >
           <div className="relative aspect-[3/4] w-full overflow-hidden">
             <Image
               src={room.foto_url || fallbackPhoto(room.nama)}
               alt={room.nama}
               fill
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
+              className="object-cover transition-transform duration-700 ease-out group-hover:scale-108"
               sizes="(max-width: 768px) 100vw, 33vw"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-emerald-900 via-emerald-900/20 to-transparent" />
             <div className="absolute top-4 left-4">
-              <span className="border border-gold/30 bg-emerald-900/90 px-3 py-1 text-[9px] uppercase tracking-widest text-gold">
+              <span className="border border-gold/30 bg-emerald-900/90 px-3 py-1 text-[9px] uppercase tracking-widest text-gold transition-colors duration-300 group-hover:border-gold">
                 {room.kapasitas} Tamu
               </span>
             </div>
@@ -68,7 +71,7 @@ export async function LandingRoomTypes() {
             <span className="text-[10px] uppercase tracking-widest text-muted-ivory">
               {room.total_kamar > 0 ? `${room.total_kamar} kamar tersedia` : 'Stok terbatas'}
             </span>
-            <h3 className="mt-1 mb-2 font-serif text-2xl font-normal text-ivory">{room.nama}</h3>
+            <h3 className="mt-1 mb-2 font-serif text-2xl font-normal text-ivory transition-colors duration-300 group-hover:text-gold">{room.nama}</h3>
             <p className="mb-6 text-[15px] tracking-wide text-gold">
               Mulai {formatRupiah(room.harga_per_malam)}{' '}
               <span className="text-[12px] text-muted-ivory">/ malam</span>
@@ -78,7 +81,7 @@ export async function LandingRoomTypes() {
               className="mt-auto inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.2em] text-gold transition-colors duration-300 hover:text-ivory"
             >
               Lihat Detail
-              <span className="text-[16px] transition-transform duration-300 group-hover:translate-x-1">→</span>
+              <span className="text-[16px] transition-transform duration-300 group-hover:translate-x-2">→</span>
             </Link>
           </div>
         </article>

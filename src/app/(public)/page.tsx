@@ -102,7 +102,7 @@ export default function LandingPage() {
               { judul: 'Bespoke Butler Service', deskripsi: 'Setiap reservasi didampingi butler terdedikasi sepanjang masa inap untuk memenuhi seluruh preferensi Anda.' },
               { judul: 'Privasi Mutlak', deskripsi: 'Lingkungan hening terisolasi dari hiruk-pikuk kota Surakarta, dirancang demi ketenangan jiwa yang paripurna.' },
             ].map((v) => (
-              <div key={v.judul} className="border-l border-gold/40 bg-emerald-900/5 p-8 text-left transition-colors duration-300 hover:bg-emerald-900/10">
+              <div key={v.judul} className="border-l-2 border-gold/40 bg-emerald-900/5 p-8 text-left transition-all duration-300 hover:bg-emerald-900/10 hover:-translate-y-1.5 hover:shadow-lg hover:border-gold">
                 <h4 className="mb-3 font-serif text-xl text-emerald-900">{v.judul}</h4>
                 <p className="text-[15px] font-light leading-6 text-emerald-900/70">{v.deskripsi}</p>
               </div>
@@ -143,9 +143,9 @@ export default function LandingPage() {
               return (
                 <div
                   key={facility.nama}
-                  className="flex flex-col items-center justify-center border-l border-gold/30 px-2 py-12 text-center transition-colors duration-300 hover:bg-emerald-900/5 first:border-l-0"
+                  className="group flex flex-col items-center justify-center border-l border-gold/30 px-2 py-12 text-center transition-all duration-300 hover:bg-emerald-900/5 hover:-translate-y-1.5 first:border-l-0"
                 >
-                  <div className="mb-3 flex h-8 w-8 items-center justify-center text-gold">
+                  <div className="mb-3 flex h-8 w-8 items-center justify-center text-gold transition-transform duration-300 group-hover:scale-115">
                     <Icon className="h-6 w-6 text-gold" strokeWidth={1.5} />
                   </div>
                   <span className="text-[11px] uppercase tracking-[0.2em] text-emerald-900">{facility.nama}</span>
@@ -166,8 +166,8 @@ export default function LandingPage() {
           </div>
           <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
             {['about-1', 'about-2', 'about-3', 'about-4'].map((img, i) => (
-              <div key={i} className={`relative overflow-hidden border border-gold/20 ${i === 0 ? 'col-span-2 row-span-2 aspect-square' : 'aspect-square'}`}>
-                <Image src={`/images/${img}.png`} alt={`Suasana The Hotels ${i + 1}`} fill className="object-cover transition-transform duration-700 hover:scale-105" sizes="(max-width: 768px) 50vw, 25vw" />
+              <div key={i} className={`group relative overflow-hidden border border-gold/20 transition-all duration-500 hover:border-gold/60 hover:shadow-2xl hover:-translate-y-1 ${i === 0 ? 'col-span-2 row-span-2 aspect-square' : 'aspect-square'}`}>
+                <Image src={`/images/${img}.png`} alt={`Suasana The Hotels ${i + 1}`} fill className="object-cover transition-transform duration-700 ease-out group-hover:scale-108" sizes="(max-width: 768px) 50vw, 25vw" />
               </div>
             ))}
           </div>
@@ -187,8 +187,8 @@ export default function LandingPage() {
             <div className="absolute top-7 left-12 right-12 z-0 hidden h-px bg-gold/30 lg:block" />
             <div className="relative z-10 grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4">
               {MOCK_BOOKING_STEPS.map((step, i) => (
-                <div key={step.judul} className="group flex flex-col items-start pr-4">
-                  <div className="mb-6 flex h-14 w-14 items-center justify-center border border-gold bg-emerald-900 transition-colors duration-300 group-hover:bg-gold">
+                <div key={step.judul} className="group flex flex-col items-start pr-4 transition-transform duration-300 hover:-translate-y-1.5">
+                  <div className="mb-6 flex h-14 w-14 items-center justify-center border border-gold bg-emerald-900 transition-all duration-300 group-hover:bg-gold group-hover:scale-105 group-hover:shadow-[0_0_15px_rgba(201,169,110,0.5)]">
                     <span className="font-serif text-2xl text-gold transition-colors duration-300 group-hover:text-emerald-900">
                       0{i + 1}
                     </span>

@@ -118,7 +118,10 @@ export function BookingHistory({ bookings, total, page, pageSize, q, status, can
       ) : (
         <ul className="divide-y divide-gold/15">
           {bookings.map((b) => (
-            <li key={b.id} className="flex flex-col gap-4 py-5 md:flex-row md:items-center md:justify-between">
+            <li
+              key={b.id}
+              className="flex flex-col gap-4 py-5 px-3 md:flex-row md:items-center md:justify-between transition-all duration-300 hover:bg-emerald-800/30 hover:pl-5 border-l-2 border-transparent hover:border-gold"
+            >
               <div className="space-y-1">
                 <div className="flex items-center gap-3">
                   <span className="font-serif text-lg text-ivory">{b.kode_booking}</span>

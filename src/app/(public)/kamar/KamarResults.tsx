@@ -46,7 +46,12 @@ function RoomCard({ room, index, searchParams }: { room: RoomData; index: number
   const foto = room.foto_url || `/images/room-${room.nama.toLowerCase().replace(' ', '-')}.png`;
   const query = searchParams.toString();
   return (
-    <article key={room.id} className={`group grid grid-cols-1 bg-emerald-800/40 shadow-xl lg:grid-cols-12 ${index === 1 ? 'bg-emerald-800/60' : ''}`}>
+    <article
+      key={room.id}
+      className={`group grid grid-cols-1 bg-emerald-800/40 border border-transparent shadow-xl transition-all duration-500 ease-out hover:-translate-y-1.5 hover:border-gold/40 hover:shadow-[0_25px_50px_rgba(0,0,0,0.5)] lg:grid-cols-12 ${
+        index === 1 ? 'bg-emerald-800/60' : ''
+      }`}
+    >
       <div className={`relative h-[420px] overflow-hidden lg:h-[580px] lg:col-span-7 ${index === 1 ? 'order-1 lg:order-2' : ''}`}>
         <Image src={foto} alt={room.nama} fill className="object-cover transition-transform duration-1000 group-hover:scale-105" sizes="(max-width: 1024px) 100vw, 60vw" />
         <div className={`absolute top-6 ${index === 1 ? 'right-6 border-r border-gold' : 'left-6 border-l border-gold'} bg-emerald-900/90 px-4 py-2`}>
