@@ -27,7 +27,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
     <html
       lang="id"
-      className={`${ebGaramond.variable} ${dmSans.variable} h-full`}
+      className={`${ebGaramond.variable} ${dmSans.variable} h-full scroll-smooth`}
     >
       <body className="min-h-full flex flex-col">{children}<ToastProvider /></body>
     </html>

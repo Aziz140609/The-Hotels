@@ -50,7 +50,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <section className="bg-ivory px-6 py-24 text-emerald-900 lg:px-20" id="tentang-kami">
+      <section className="scroll-mt-20 bg-ivory px-6 py-24 text-emerald-900 lg:px-20" id="tentang-kami">
         <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-12">
           <div className="relative aspect-[4/5] overflow-hidden bg-emerald-800/20 lg:col-span-5">
             <Image src="/images/about-1.png" alt="Pavilion Atrium" fill className="transition-transform duration-1000 hover:scale-102 object-cover" sizes="(max-width: 1024px) 100vw, 40vw" />
@@ -63,8 +63,11 @@ export default function LandingPage() {
             <h2 className="mb-6 font-serif text-4xl font-normal leading-[1.15] tracking-tight text-emerald-900 md:text-5xl">
               Kemewahan yang tenang
             </h2>
+            <p className="mb-6 max-w-2xl text-lg font-light leading-7 text-emerald-900/80">
+              Tersembunyi di jantung historis Surakarta, The Hotels menghadirkan suaka eksklusif yang memadukan keanggunan arsitektur warisan Jawa dengan ketenangan spasial kontemporer. Kami merawat privasi mutlak Anda melalui pengalaman menginap yang meditatif, hening, dan penuh kesadaran personal.
+            </p>
             <p className="mb-10 max-w-2xl text-lg font-light leading-7 text-emerald-900/80">
-              Tersembunyi di jantung historis Surakarta, The Hotels menghadirkan suaka eksklusif yang memadukan keanggunan arsitektur warisan Jawa dengan ketenangan spasial kontemporer. Kami merawat privasi mutlak Anda melalui pengalaman menginap yang meditatif, hening, dan penuh kesadaran personal. Di setiap sudutnya, kemewahan terwujud bukan dalam kemeriahan, melainkan dalam ketenangan yang tak terusik.
+              Setiap sudut dirancang sebagai suaka privat yang memadukan material alami, linen sutra organik, dan pemandangan taman tropis yang hening — di mana kemewahan terwujud bukan dalam kemeriahan, melainkan dalam ketenangan yang tak terusik.
             </p>
             <div className="grid grid-cols-3 items-center border-y border-gold/30 py-6">
               <div className="flex flex-col border-l border-gold/30 pl-4">
@@ -83,6 +86,27 @@ export default function LandingPage() {
                 <span className="mt-0.5 text-[11px] font-light text-emerald-900/60">World-class hospitality</span>
               </div>
             </div>
+          </div>
+        </div>
+
+        {/* Nilai & Komitmen Kami */}
+        <div className="mx-auto mt-20 max-w-7xl border-t border-gold/20 pt-16">
+          <div className="mb-12 text-center">
+            <span className="mb-2 block text-[11px] font-semibold uppercase tracking-[0.3em] text-gold">Nilai Kami</span>
+            <h3 className="font-serif text-3xl font-normal text-emerald-900 md:text-4xl">Komitmen Keunggulan</h3>
+            <div className="mx-auto mt-4 h-px w-16 bg-gold" />
+          </div>
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+            {[
+              { judul: 'Garansi Tarif Terbaik', deskripsi: 'Pesan langsung dengan jaminan harga terendah serta fleksibilitas pengubahan tanggal dan pembatalan tanpa denda tersembunyi.' },
+              { judul: 'Bespoke Butler Service', deskripsi: 'Setiap reservasi didampingi butler terdedikasi sepanjang masa inap untuk memenuhi seluruh preferensi Anda.' },
+              { judul: 'Privasi Mutlak', deskripsi: 'Lingkungan hening terisolasi dari hiruk-pikuk kota Surakarta, dirancang demi ketenangan jiwa yang paripurna.' },
+            ].map((v) => (
+              <div key={v.judul} className="border-l border-gold/40 bg-emerald-900/5 p-8 text-left transition-colors duration-300 hover:bg-emerald-900/10">
+                <h4 className="mb-3 font-serif text-xl text-emerald-900">{v.judul}</h4>
+                <p className="text-[15px] font-light leading-6 text-emerald-900/70">{v.deskripsi}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -129,6 +153,23 @@ export default function LandingPage() {
                 </div>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-emerald-950 px-6 py-24 text-ivory lg:px-20 border-t border-gold/20">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-12 text-center">
+            <span className="mb-2 block text-[11px] uppercase tracking-[0.3em] text-gold">Galeri Suaka</span>
+            <h2 className="font-serif text-4xl font-normal md:text-5xl">Suasana The Hotels</h2>
+            <div className="mx-auto mt-4 h-px w-16 bg-gold opacity-70" />
+          </div>
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+            {['about-1', 'about-2', 'about-3', 'about-4'].map((img, i) => (
+              <div key={i} className={`relative overflow-hidden border border-gold/20 ${i === 0 ? 'col-span-2 row-span-2 aspect-square' : 'aspect-square'}`}>
+                <Image src={`/images/${img}.png`} alt={`Suasana The Hotels ${i + 1}`} fill className="object-cover transition-transform duration-700 hover:scale-105" sizes="(max-width: 768px) 50vw, 25vw" />
+              </div>
+            ))}
           </div>
         </div>
       </section>

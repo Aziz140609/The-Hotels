@@ -8,7 +8,7 @@ import { AccountMenu } from './account-menu';
 const links = [
   ['Home', '/'],
   ['Ruangan', '/kamar'],
-  ['About Us', '/about'],
+  ['About Us', '/#tentang-kami'],
   ['Contact', '/contact'],
 ] as const;
 

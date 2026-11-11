@@ -6,7 +6,7 @@ import { HOTEL } from '@/lib/constants';
 const links = [
   ['Home', '/'],
   ['Ruangan', '/kamar'],
-  ['About Us', '/about'],
+  ['About Us', '/#tentang-kami'],
   ['Contact', '/contact'],
 ] as const;
 
