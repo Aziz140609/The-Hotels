@@ -39,6 +39,25 @@
   }
 }
 
+@keyframes shuffleCardIn {
+  0% {
+    opacity: 0;
+    transform: translateY(22px) scale(0.97);
+  }
+  70% {
+    opacity: 1;
+    transform: translateY(-2px) scale(1.005);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.shuffle-card-animate {
+  animation: shuffleCardIn 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
 @layer base {
   *,
   *::before,

@@ -29,7 +29,8 @@ export async function signIn(
     return { ok: false, code: 'VALIDATION', message: 'Periksa kembali data Anda.', fieldErrors: parsed.error.flatten().fieldErrors };
   }
 
-  if (!checkRateLimit(`login:${await clientIp()}`, 10, 300_000)) {
+  const ip = await clientIp();
+  if (!checkRateLimit(`login:${parsed.data.email}:${ip}`, 30, 300_000)) {
     return { ok: false, code: 'RATE_LIMITED', message: 'Terlalu banyak percobaan masuk. Tunggu beberapa menit lalu coba lagi.' };
   }
 

@@ -2,14 +2,12 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { FormField } from '@/components/ui/form-field';
 import { Input } from '@/components/ui/input';
 import { signIn } from '@/lib/actions/auth';
 
 export function LoginForm({ next }: { next?: string }) {
-  const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string[]>>({});
@@ -29,8 +27,8 @@ export function LoginForm({ next }: { next?: string }) {
       return;
     }
 
-    router.push(result.data.redirectTo);
-    router.refresh();
+    // Force full page navigation so cookies and session state are refreshed on all devices
+    window.location.href = result.data.redirectTo;
   };
 
   return (

@@ -1,3 +1,4 @@
+import { connection } from 'next/server';
 import { SplitAuthLayout } from '@/components/layout/split-auth-layout';
 import { LoginForm } from './LoginForm';
 
@@ -6,6 +7,7 @@ interface PageProps {
 }
 
 export default async function LoginPage({ searchParams }: PageProps) {
+  await connection();
   const { next } = await searchParams;
 
   return (
