@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { GoldDivider } from '@/components/ui/gold-divider';
 import { EmptyState } from '@/components/ui/empty-state';
+import { ShuffleCard } from '@/components/ui/shuffle-card';
 import { formatRupiah } from '@/lib/format';
 import type { ActionResult } from '@/lib/errors';
 
@@ -173,7 +174,9 @@ export function KamarResults({ result, searchParams }: KamarResultsProps) {
       ) : (
         <div className="space-y-16">
           {availableRooms.map((room, i) => (
-            <RoomCard key={room.id} room={room} index={i} searchParams={new URLSearchParams(searchParams as Record<string, string>)} />
+            <ShuffleCard key={room.id} index={i} total={availableRooms.length} staggerMs={150}>
+              <RoomCard room={room} index={i} searchParams={new URLSearchParams(searchParams as Record<string, string>)} />
+            </ShuffleCard>
           ))}
         </div>
       )}

@@ -5,6 +5,7 @@ import { MOCK_BOOKING_STEPS, MOCK_FACILITIES } from '@/components/features/mock-
 import { LandingRoomTypes, LandingRoomTypesSkeleton } from '@/components/features/landing-room-types';
 import { Button } from '@/components/ui/button';
 import { GoldDivider } from '@/components/ui/gold-divider';
+import { ShuffleCard } from '@/components/ui/shuffle-card';
 import { HOTEL } from '@/lib/constants';
 import { MapPin, Clock, Phone, Wifi, Waves, Utensils, Sparkles, Car, ConciergeBell } from 'lucide-react';
 
@@ -101,11 +102,13 @@ export default function LandingPage() {
               { judul: 'Garansi Tarif Terbaik', deskripsi: 'Pesan langsung dengan jaminan harga terendah serta fleksibilitas pengubahan tanggal dan pembatalan tanpa denda tersembunyi.' },
               { judul: 'Bespoke Butler Service', deskripsi: 'Setiap reservasi didampingi butler terdedikasi sepanjang masa inap untuk memenuhi seluruh preferensi Anda.' },
               { judul: 'Privasi Mutlak', deskripsi: 'Lingkungan hening terisolasi dari hiruk-pikuk kota Surakarta, dirancang demi ketenangan jiwa yang paripurna.' },
-            ].map((v) => (
-              <div key={v.judul} className="border-l-2 border-gold/40 bg-emerald-900/5 p-8 text-left transition-all duration-300 hover:bg-emerald-900/10 hover:-translate-y-1.5 hover:shadow-lg hover:border-gold">
-                <h4 className="mb-3 font-serif text-xl text-emerald-900">{v.judul}</h4>
-                <p className="text-[15px] font-light leading-6 text-emerald-900/70">{v.deskripsi}</p>
-              </div>
+            ].map((v, idx) => (
+              <ShuffleCard key={v.judul} index={idx} total={3} className="flex">
+                <div className="w-full border-l-2 border-gold/40 bg-emerald-900/5 p-8 text-left transition-all duration-300 hover:bg-emerald-900/10 hover:-translate-y-1.5 hover:shadow-lg hover:border-gold">
+                  <h4 className="mb-3 font-serif text-xl text-emerald-900">{v.judul}</h4>
+                  <p className="text-[15px] font-light leading-6 text-emerald-900/70">{v.deskripsi}</p>
+                </div>
+              </ShuffleCard>
             ))}
           </div>
         </div>
@@ -138,19 +141,20 @@ export default function LandingPage() {
             <div className="mx-auto mt-4 h-px w-16 bg-gold" />
           </div>
           <div className="grid grid-cols-2 border-y border-gold/30 md:grid-cols-3 lg:grid-cols-6">
-            {MOCK_FACILITIES.map((facility) => {
+            {MOCK_FACILITIES.map((facility, idx) => {
               const Icon = FACILITY_ICONS[facility.nama] ?? Sparkles;
               return (
-                <div
-                  key={facility.nama}
-                  className="group flex flex-col items-center justify-center border-l border-gold/30 px-2 py-12 text-center transition-all duration-300 hover:bg-emerald-900/5 hover:-translate-y-1.5 first:border-l-0"
-                >
-                  <div className="mb-3 flex h-8 w-8 items-center justify-center text-gold transition-transform duration-300 group-hover:scale-115">
-                    <Icon className="h-6 w-6 text-gold" strokeWidth={1.5} />
+                <ShuffleCard key={facility.nama} index={idx} total={6} staggerMs={80}>
+                  <div
+                    className="group flex h-full flex-col items-center justify-center border-l border-gold/30 px-2 py-12 text-center transition-all duration-300 hover:bg-emerald-900/5 hover:-translate-y-1.5 first:border-l-0"
+                  >
+                    <div className="mb-3 flex h-8 w-8 items-center justify-center text-gold transition-transform duration-300 group-hover:scale-115">
+                      <Icon className="h-6 w-6 text-gold" strokeWidth={1.5} />
+                    </div>
+                    <span className="text-[11px] uppercase tracking-[0.2em] text-emerald-900">{facility.nama}</span>
+                    <span className="mt-1 text-[11px] font-light text-emerald-900/50">{facility.deskripsi}</span>
                   </div>
-                  <span className="text-[11px] uppercase tracking-[0.2em] text-emerald-900">{facility.nama}</span>
-                  <span className="mt-1 text-[11px] font-light text-emerald-900/50">{facility.deskripsi}</span>
-                </div>
+                </ShuffleCard>
               );
             })}
           </div>
@@ -166,9 +170,16 @@ export default function LandingPage() {
           </div>
           <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
             {['about-1', 'about-2', 'about-3', 'about-4'].map((img, i) => (
-              <div key={i} className={`group relative overflow-hidden border border-gold/20 transition-all duration-500 hover:border-gold/60 hover:shadow-2xl hover:-translate-y-1 ${i === 0 ? 'col-span-2 row-span-2 aspect-square' : 'aspect-square'}`}>
-                <Image src={`/images/${img}.png`} alt={`Suasana The Hotels ${i + 1}`} fill className="object-cover transition-transform duration-700 ease-out group-hover:scale-108" sizes="(max-width: 768px) 50vw, 25vw" />
-              </div>
+              <ShuffleCard
+                key={i}
+                index={i}
+                total={4}
+                className={i === 0 ? 'col-span-2 row-span-2' : ''}
+              >
+                <div className={`group relative h-full w-full overflow-hidden border border-gold/20 transition-all duration-500 hover:border-gold/60 hover:shadow-2xl hover:-translate-y-1 ${i === 0 ? 'aspect-square min-h-full' : 'aspect-square'}`}>
+                  <Image src={`/images/${img}.png`} alt={`Suasana The Hotels ${i + 1}`} fill className="object-cover transition-transform duration-700 ease-out group-hover:scale-108" sizes="(max-width: 768px) 50vw, 25vw" />
+                </div>
+              </ShuffleCard>
             ))}
           </div>
         </div>
@@ -187,17 +198,19 @@ export default function LandingPage() {
             <div className="absolute top-7 left-12 right-12 z-0 hidden h-px bg-gold/30 lg:block" />
             <div className="relative z-10 grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4">
               {MOCK_BOOKING_STEPS.map((step, i) => (
-                <div key={step.judul} className="group flex flex-col items-start pr-4 transition-transform duration-300 hover:-translate-y-1.5">
-                  <div className="mb-6 flex h-14 w-14 items-center justify-center border border-gold bg-emerald-900 transition-all duration-300 group-hover:bg-gold group-hover:scale-105 group-hover:shadow-[0_0_15px_rgba(201,169,110,0.5)]">
-                    <span className="font-serif text-2xl text-gold transition-colors duration-300 group-hover:text-emerald-900">
-                      0{i + 1}
-                    </span>
+                <ShuffleCard key={step.judul} index={i} total={4} staggerMs={130}>
+                  <div className="group flex flex-col items-start pr-4 transition-transform duration-300 hover:-translate-y-1.5">
+                    <div className="mb-6 flex h-14 w-14 items-center justify-center border border-gold bg-emerald-900 transition-all duration-300 group-hover:bg-gold group-hover:scale-105 group-hover:shadow-[0_0_15px_rgba(201,169,110,0.5)]">
+                      <span className="font-serif text-2xl text-gold transition-colors duration-300 group-hover:text-emerald-900">
+                        0{i + 1}
+                      </span>
+                    </div>
+                    <h3 className="mb-2 font-serif text-xl font-normal tracking-wide text-ivory">
+                      {step.judul}
+                    </h3>
+                    <p className="text-[15px] font-light leading-6 text-muted-ivory">{step.deskripsi}</p>
                   </div>
-                  <h3 className="mb-2 font-serif text-xl font-normal tracking-wide text-ivory">
-                    {step.judul}
-                  </h3>
-                  <p className="text-[15px] font-light leading-6 text-muted-ivory">{step.deskripsi}</p>
-                </div>
+                </ShuffleCard>
               ))}
             </div>
           </div>
