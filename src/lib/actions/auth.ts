@@ -21,6 +21,16 @@ async function clientIp(): Promise<string> {
   return hdrs.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
 }
 
+async function getSiteUrl(): Promise<string> {
+  const hdrs = await headers();
+  const host = hdrs.get('x-forwarded-host') || hdrs.get('host');
+  const proto = hdrs.get('x-forwarded-proto') || 'http';
+  if (host) {
+    return `${proto}://${host}`;
+  }
+  return process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000';
+}
+
 export async function signIn(
   input: Record<string, unknown>
 ): Promise<ActionResult<{ redirectTo: string }>> {
@@ -72,7 +82,7 @@ export async function signUp(
   }
 
   const supabase = await createClient();
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000';
+  const siteUrl = await getSiteUrl();
   const { data, error } = await supabase.auth.signUp({
     email: parsed.data.email,
     password: parsed.data.password,
@@ -110,7 +120,7 @@ export async function requestPasswordReset(
   }
 
   const supabase = await createClient();
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000';
+  const siteUrl = await getSiteUrl();
   await supabase.auth.resetPasswordForEmail(parsed.data.email, {
     redirectTo: `${siteUrl}/api/auth/callback?next=/reset-password`,
   });
