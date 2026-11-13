@@ -29,8 +29,8 @@ export function RegisterForm({ next }: { next?: string }) {
   const set = (key: keyof typeof values) => (e: React.ChangeEvent<HTMLInputElement>) =>
     setValues((v) => ({ ...v, [key]: e.target.value }));
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
     setFormError(null);
     setFieldErrors({});
     setIsSubmitting(true);
@@ -66,7 +66,15 @@ export function RegisterForm({ next }: { next?: string }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        handleSubmit(e);
+      }}
+      action="#"
+      method="POST"
+      className="space-y-6"
+    >
       {formError && <p role="alert" className="text-[13px] text-danger">{formError}</p>}
       <FormField id="nama" label="Nama Lengkap" error={fieldErrors.nama_lengkap?.[0]}>
         <Input id="nama" name="nama_lengkap" autoComplete="name" placeholder="Nama lengkap Anda" value={values.nama_lengkap} onChange={set('nama_lengkap')} required />
@@ -87,7 +95,14 @@ export function RegisterForm({ next }: { next?: string }) {
         <Checkbox id="setuju" label="Saya menyetujui syarat dan ketentuan yang berlaku" checked={setuju} onChange={(e) => setSetuju(e.target.checked)} />
         {fieldErrors.setuju?.[0] && <p role="alert" className="mt-1 text-[12px] text-danger">{fieldErrors.setuju[0]}</p>}
       </div>
-      <Button type="submit" loading={isSubmitting} className="w-full py-4">Daftar</Button>
+      <Button
+        type="button"
+        onClick={() => handleSubmit()}
+        loading={isSubmitting}
+        className="w-full py-4"
+      >
+        Daftar
+      </Button>
       <p className="text-center text-[13px] text-muted-ivory">
         Sudah punya akun?{' '}
         <Link href={loginHref} className="text-gold hover:text-ivory">Masuk</Link>

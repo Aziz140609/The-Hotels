@@ -13,8 +13,8 @@ export function LoginForm({ next }: { next?: string }) {
   const [fieldErrors, setFieldErrors] = useState<Record<string, string[]>>({});
   const [values, setValues] = useState({ email: '', password: '' });
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
     setFormError(null);
     setFieldErrors({});
     setIsSubmitting(true);
@@ -32,7 +32,15 @@ export function LoginForm({ next }: { next?: string }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        handleSubmit(e);
+      }}
+      action="#"
+      method="POST"
+      className="space-y-6"
+    >
       {formError && <p role="alert" className="text-[13px] text-danger">{formError}</p>}
       <FormField id="email" label="Email" error={fieldErrors.email?.[0]}>
         <Input
@@ -61,7 +69,14 @@ export function LoginForm({ next }: { next?: string }) {
       <div className="flex justify-end">
         <Link href="/lupa-password" className="text-[11px] uppercase tracking-wide text-gold hover:text-ivory">Lupa Password?</Link>
       </div>
-      <Button type="submit" loading={isSubmitting} className="w-full py-4">Masuk</Button>
+      <Button
+        type="button"
+        onClick={() => handleSubmit()}
+        loading={isSubmitting}
+        className="w-full py-4"
+      >
+        Masuk
+      </Button>
       <p className="text-center text-[13px] text-muted-ivory">
         Belum punya akun?{' '}
         <Link href="/register" className="text-gold hover:text-ivory">Daftar Sekarang</Link>
