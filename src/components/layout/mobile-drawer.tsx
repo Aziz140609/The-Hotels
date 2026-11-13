@@ -5,7 +5,7 @@ import { X } from 'lucide-react';
 import { signOut } from '@/lib/actions/auth';
 import type { NavUser } from './public-navbar';
 
-const links = [['Home', '/'], ['Ruangan', '/kamar'], ['About Us', '/#tentang-kami'], ['Contact', '/contact']] as const;
+const links = [['Home', '/'], ['Ruangan', '/kamar'], ['About Us', '/#tentang-kami'], ['Contact', '/#kontak']] as const;
 
 interface MobileDrawerProps {
   open: boolean;

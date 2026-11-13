@@ -9,7 +9,7 @@ const navItems = [
   { label: 'Home', href: '/', icon: Home },
   { label: 'Ruangan', href: '/kamar', icon: BedDouble },
   { label: 'Tentang', href: '/#tentang-kami', icon: Sparkles },
-  { label: 'Kontak', href: '/contact', icon: MessageSquare },
+  { label: 'Kontak', href: '/#kontak', icon: MessageSquare },
 ] as const;
 
 export interface NavUser {

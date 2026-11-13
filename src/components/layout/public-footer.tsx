@@ -7,7 +7,7 @@ const links = [
   ['Home', '/'],
   ['Ruangan', '/kamar'],
   ['About Us', '/#tentang-kami'],
-  ['Contact', '/contact'],
+  ['Contact', '/#kontak'],
 ] as const;
 
 export function PublicFooter() {

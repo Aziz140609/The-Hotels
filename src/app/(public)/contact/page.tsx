@@ -1,6 +1,6 @@
 import { HOTEL } from '@/lib/constants';
 import { MapPin, Phone, Mail } from 'lucide-react';
-import { ContactForm } from './ContactForm';
+import { ContactForm } from '@/components/features/contact-form';
 
 export default function ContactPage() {
   return (

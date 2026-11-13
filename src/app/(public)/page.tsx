@@ -7,7 +7,8 @@ import { Button } from '@/components/ui/button';
 import { GoldDivider } from '@/components/ui/gold-divider';
 import { ShuffleCard } from '@/components/ui/shuffle-card';
 import { HOTEL } from '@/lib/constants';
-import { MapPin, Clock, Phone, Wifi, Waves, Utensils, Sparkles, Car, ConciergeBell } from 'lucide-react';
+import { MapPin, Clock, Phone, Mail, Wifi, Waves, Utensils, Sparkles, Car, ConciergeBell } from 'lucide-react';
+import { ContactForm } from '@/components/features/contact-form';
 
 const FACILITY_ICONS: Record<string, React.ComponentType<{ className?: string; strokeWidth?: number }>> = {
   WiFi: Wifi,
@@ -277,6 +278,70 @@ export default function LandingPage() {
             <div className="absolute right-4 bottom-4 border border-gold/30 bg-emerald-900/90 px-3 py-1.5">
               <span className="text-[9px] uppercase tracking-wider text-muted-ivory">7°33&apos;56.2&quot;S 110°49&apos;32.8&quot;E</span>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Hubungi Kami / Contact Section */}
+      <section id="kontak" className="scroll-mt-20 border-t border-gold/20 bg-emerald-950 px-6 py-24 text-ivory lg:px-20">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-14 text-center">
+            <span className="mb-2 block text-[11px] uppercase tracking-[0.3em] text-gold">Hubungi Concierge</span>
+            <h2 className="font-serif text-4xl font-normal text-ivory md:text-5xl">Layanan & Pertanyaan</h2>
+            <div className="mx-auto mt-4 h-px w-16 bg-gold opacity-70" />
+            <p className="mx-auto mt-4 max-w-xl text-[15px] font-light leading-6 text-muted-ivory">
+              Tim concierge kami siap melayani reservasi khusus, permintaan personal, maupun informasi seputar pengalaman menginap Anda.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
+            <div className="border border-gold/30 bg-emerald-900/40 p-8 sm:p-10 lg:col-span-7">
+              <h3 className="mb-6 font-serif text-2xl font-normal text-ivory">Kirim Pesan Langsung</h3>
+              <ContactForm />
+            </div>
+
+            <aside className="flex flex-col justify-between space-y-6 lg:col-span-5">
+              <div className="border border-gold/30 bg-emerald-900/40 p-8">
+                <h3 className="mb-6 font-serif text-2xl font-normal text-ivory">Informasi Kontak</h3>
+                <div className="space-y-6">
+                  <div className="flex items-start gap-4 border-b border-gold/20 pb-5">
+                    <MapPin className="mt-1 h-5 w-5 shrink-0 text-gold" strokeWidth={1.25} />
+                    <div>
+                      <span className="text-[10px] uppercase tracking-widest text-gold">Alamat Utama</span>
+                      <p className="mt-1 text-[14px] font-light leading-relaxed text-ivory">{HOTEL.address}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-4 border-b border-gold/20 pb-5">
+                    <Phone className="mt-1 h-5 w-5 shrink-0 text-gold" strokeWidth={1.25} />
+                    <div>
+                      <span className="text-[10px] uppercase tracking-widest text-gold">Telepon & WhatsApp</span>
+                      <p className="mt-1 text-[14px] font-light text-ivory">{HOTEL.phone}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-4 border-b border-gold/20 pb-5">
+                    <Mail className="mt-1 h-5 w-5 shrink-0 text-gold" strokeWidth={1.25} />
+                    <div>
+                      <span className="text-[10px] uppercase tracking-widest text-gold">Surat Elektronik</span>
+                      <p className="mt-1 text-[14px] font-light text-ivory">{HOTEL.email}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <Clock className="mt-1 h-5 w-5 shrink-0 text-gold" strokeWidth={1.25} />
+                    <div>
+                      <span className="text-[10px] uppercase tracking-widest text-gold">Waktu Operasional</span>
+                      <p className="mt-1 text-[14px] font-light text-ivory">Butler & Concierge Siaga 24 Jam</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="border border-gold/20 bg-emerald-900/20 p-6 text-center">
+                <p className="text-[12px] uppercase tracking-widest text-gold">Respon Prioritas</p>
+                <p className="mt-2 text-[13px] font-light text-muted-ivory">
+                  Pesan Anda ditangani langsung oleh Guest Relations Officer untuk memastikan privasi dan kenyamanan.
+                </p>
+              </div>
+            </aside>
           </div>
         </div>
       </section>
