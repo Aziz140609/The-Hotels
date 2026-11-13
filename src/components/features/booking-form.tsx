@@ -57,8 +57,8 @@ export function BookingForm({
   const loginHref = `/login?next=${encodeURIComponent(nextUrl)}`;
   const registerHref = `/register?next=${encodeURIComponent(nextUrl)}`;
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
     if (nights <= 0) {
       toast.error('Tanggal check-out harus setelah check-in.');
       return;
@@ -90,7 +90,7 @@ export function BookingForm({
     'w-full bg-transparent border-b border-gold/50 focus:border-gold focus:outline-none text-ivory py-1.5 text-[14px] font-light';
 
   return (
-    <form onSubmit={handleSubmit} className="mt-6 space-y-4 border-t border-gold/20 pt-6">
+    <form onSubmit={(e) => { e.preventDefault(); handleSubmit(e); }} action="#" className="mt-6 space-y-4 border-t border-gold/20 pt-6">
       <div className="grid grid-cols-2 gap-4">
         <div>
           <label htmlFor="checkin" className="text-[10px] uppercase tracking-widest text-gold">Check-in</label>
@@ -129,7 +129,7 @@ export function BookingForm({
         </div>
       )}
 
-      <Button type="submit" disabled={isSubmitting || nights <= 0} className="w-full py-4">
+      <Button type="button" onClick={() => handleSubmit()} disabled={isSubmitting || nights <= 0} className="w-full py-4">
         {isSubmitting ? (
           <>
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
