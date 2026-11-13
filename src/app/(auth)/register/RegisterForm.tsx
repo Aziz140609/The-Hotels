@@ -35,7 +35,7 @@ export function RegisterForm({ next }: { next?: string }) {
     setFieldErrors({});
     setIsSubmitting(true);
 
-    const result = await signUp({ ...values, setuju });
+    const result = await signUp({ ...values, setuju, next });
     if (!result.ok) {
       setFormError(result.message);
       setFieldErrors(result.fieldErrors ?? {});

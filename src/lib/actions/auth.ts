@@ -83,6 +83,8 @@ export async function signUp(
 
   const supabase = await createClient();
   const siteUrl = await getSiteUrl();
+  const next = sanitizeRedirect(typeof input.next === 'string' ? input.next : null);
+  const emailRedirectTo = `${siteUrl}/api/auth/callback?next=${encodeURIComponent(next)}`;
   const { data, error } = await supabase.auth.signUp({
     email: parsed.data.email,
     password: parsed.data.password,
@@ -91,7 +93,7 @@ export async function signUp(
         nama_lengkap: parsed.data.nama_lengkap,
         no_hp: parsed.data.no_hp ?? null,
       },
-      emailRedirectTo: `${siteUrl}/api/auth/callback`,
+      emailRedirectTo,
     },
   });
 
