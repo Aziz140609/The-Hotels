@@ -146,10 +146,12 @@ export function BookingForm({
           Anda perlu masuk ke akun terlebih dahulu untuk membuat reservasi. Tanggal yang Anda pilih akan tetap tersimpan.
         </p>
         <div className="flex flex-col gap-3 sm:flex-row">
-          <Button type="button" onClick={() => router.push(loginHref)} className="flex-1 py-3">
+          {/* eslint-disable-next-line @next/next/no-location-assign-relative-destination */}
+          <Button type="button" onClick={() => { window.location.href = loginHref; }} className="flex-1 py-3">
             Masuk
           </Button>
-          <Button type="button" variant="outline" onClick={() => router.push(registerHref)} className="flex-1 py-3">
+          {/* eslint-disable-next-line @next/next/no-location-assign-relative-destination */}
+          <Button type="button" variant="outline" onClick={() => { window.location.href = registerHref; }} className="flex-1 py-3">
             Daftar Akun
           </Button>
         </div>

@@ -1,8 +1,7 @@
 'use client';
 
-import * as DialogPrimitive from '@radix-ui/react-dialog';
+import { useEffect, type ReactNode } from 'react';
 import { X } from 'lucide-react';
-import type { ReactNode } from 'react';
 
 interface DialogProps {
   open: boolean;
@@ -12,20 +11,46 @@ interface DialogProps {
 }
 
 export function Dialog({ open, onClose, title, children }: DialogProps) {
+  // Close on Escape key
+  useEffect(() => {
+    if (!open) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [open, onClose]);
+
+  if (!open) return null;
+
   return (
-    <DialogPrimitive.Root open={open} onOpenChange={(nextOpen) => !nextOpen && onClose()}>
-      <DialogPrimitive.Portal>
-        <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-emerald-950/85" />
-        <DialogPrimitive.Content className="fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)] max-w-lg -translate-x-1/2 -translate-y-1/2 border border-gold/40 bg-emerald-800 p-6 focus:outline-none">
-          <div className="mb-6 flex items-start justify-between gap-4 border-b border-gold/30 pb-4">
-            <DialogPrimitive.Title className="font-serif text-3xl text-ivory">{title}</DialogPrimitive.Title>
-            <DialogPrimitive.Close aria-label="Tutup dialog" className="text-gold hover:text-ivory">
-              <X strokeWidth={1.25} />
-            </DialogPrimitive.Close>
-          </div>
-          {children}
-        </DialogPrimitive.Content>
-      </DialogPrimitive.Portal>
-    </DialogPrimitive.Root>
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
+      {/* Backdrop Overlay */}
+      <div
+        className="fixed inset-0 bg-[#081814]/85 backdrop-blur-md transition-opacity"
+        onClick={onClose}
+        aria-hidden="true"
+      />
+
+      {/* Modal Card */}
+      <div
+        role="dialog"
+        aria-modal="true"
+        className="relative z-10 w-full max-w-lg border border-gold/40 bg-emerald-900 p-6 sm:p-8 shadow-[0_25px_60px_rgba(0,0,0,0.8)] focus:outline-none animate-in fade-in zoom-in-95 duration-200"
+      >
+        <div className="mb-6 flex items-start justify-between gap-4 border-b border-gold/30 pb-4">
+          <h3 className="font-serif text-2xl sm:text-3xl text-ivory tracking-wide">{title}</h3>
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Tutup dialog"
+            className="text-gold/80 transition-colors hover:text-ivory"
+          >
+            <X className="h-6 w-6" strokeWidth={1.5} />
+          </button>
+        </div>
+        {children}
+      </div>
+    </div>
   );
 }
