@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, type ReactNode } from 'react';
+import { useEffect, useSyncExternalStore, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import { X } from 'lucide-react';
 
@@ -11,12 +11,12 @@ interface DialogProps {
   children: ReactNode;
 }
 
-export function Dialog({ open, onClose, title, children }: DialogProps) {
-  const [mounted, setMounted] = useState(false);
+const emptySubscribe = () => () => {};
+const getClientSnapshot = () => true;
+const getServerSnapshot = () => false;
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+export function Dialog({ open, onClose, title, children }: DialogProps) {
+  const mounted = useSyncExternalStore(emptySubscribe, getClientSnapshot, getServerSnapshot);
 
   // Close on Escape key
   useEffect(() => {

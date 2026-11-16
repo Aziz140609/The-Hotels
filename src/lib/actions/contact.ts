@@ -2,6 +2,7 @@
 
 import { headers } from 'next/headers';
 import { createAdminClient } from '@/lib/supabase/admin';
+import { requireAdmin } from '@/lib/auth';
 import type { ActionResult } from '@/lib/errors';
 import { mapError } from '@/lib/errors';
 import { contactSchema } from '@/lib/validators';
@@ -35,5 +36,24 @@ export async function submitContact(
 
   if (error) return { ok: false, ...mapError(error) };
 
+  return { ok: true, data: undefined };
+}
+
+export async function markMessageRead(
+  id: number,
+  is_read = true
+): Promise<ActionResult<void>> {
+  await requireAdmin();
+  const admin = createAdminClient();
+  const { error } = await admin.from('messages').update({ is_read }).eq('id', id);
+  if (error) return { ok: false, ...mapError(error) };
+  return { ok: true, data: undefined };
+}
+
+export async function deleteMessage(id: number): Promise<ActionResult<void>> {
+  await requireAdmin();
+  const admin = createAdminClient();
+  const { error } = await admin.from('messages').delete().eq('id', id);
+  if (error) return { ok: false, ...mapError(error) };
   return { ok: true, data: undefined };
 }

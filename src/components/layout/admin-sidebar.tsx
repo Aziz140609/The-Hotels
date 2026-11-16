@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { BarChart3, BedDouble, DoorOpen, CalendarDays, Users, FileText } from 'lucide-react';
+import { BarChart3, BedDouble, DoorOpen, CalendarDays, Users, FileText, MessageSquare } from 'lucide-react';
 
 const links = [
   ['Dashboard', '/admin', BarChart3],
@@ -8,6 +8,7 @@ const links = [
   ['Booking', '/admin/booking', CalendarDays],
   ['Pengguna', '/admin/pengguna', Users],
   ['Laporan', '/admin/laporan', FileText],
+  ['Pesan Masuk', '/admin/pesan', MessageSquare],
 ] as const;
 
 export function AdminSidebar() {
