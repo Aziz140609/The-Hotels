@@ -170,11 +170,11 @@ export default function LandingPage() {
             <div className="mx-auto mt-4 h-px w-16 bg-gold opacity-70" />
           </div>
           <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-            {['about-1', 'about-2', 'about-3', 'about-4'].map((img, i) => (
+            {['about-1', 'about-2', 'about-3', 'about-4', 'about-5'].map((img, i) => (
               <ShuffleCard
                 key={i}
                 index={i}
-                total={4}
+                total={5}
                 className={i === 0 ? 'col-span-2 row-span-2' : ''}
               >
                 <div className={`group relative h-full w-full overflow-hidden border border-gold/20 transition-all duration-500 hover:border-gold/60 hover:shadow-2xl hover:-translate-y-1 ${i === 0 ? 'aspect-square min-h-full' : 'aspect-square'}`}>
