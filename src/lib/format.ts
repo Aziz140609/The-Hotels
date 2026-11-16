@@ -20,3 +20,7 @@ export function formatDateTime(date: string | Date): string {
   const d = typeof date === 'string' ? parseISO(date) : date;
   return format(d, "d MMM yyyy, HH.mm 'WIB'", { locale: id });
 }
+
+export function getTodayJakarta(): string {
+  return new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Jakarta' }).format(new Date());
+}

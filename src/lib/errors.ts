@@ -29,6 +29,8 @@ export type ErrorCode =
   | 'IMMUTABLE_FIELD'
   | 'LAST_ADMIN'
   | 'INVALID_STATUS_TRANSITION'
+  | 'CHECKIN_EXPIRED'
+  | 'CHECKIN_TOO_EARLY'
   | 'AMOUNT_MISMATCH';
 
 export type ActionResult<T = void> =
@@ -57,6 +59,8 @@ const BUSINESS_MESSAGES: Record<string, string> = {
   IMMUTABLE_FIELD: 'Data ini tidak dapat diubah. Batalkan dan buat booking baru.',
   LAST_ADMIN: 'Tidak dapat menghapus atau menurunkan admin terakhir.',
   INVALID_STATUS_TRANSITION: 'Status booking sudah berubah. Muat ulang halaman lalu coba lagi.',
+  CHECKIN_EXPIRED: 'Masa menginap sudah melewati tanggal check-out. Tamu tidak dapat di-check-in.',
+  CHECKIN_TOO_EARLY: 'Tamu belum dapat di-check-in sebelum tanggal reservasi.',
   AMOUNT_MISMATCH: 'Nominal pembayaran tidak sesuai. Silakan muat ulang halaman.',
 };
 

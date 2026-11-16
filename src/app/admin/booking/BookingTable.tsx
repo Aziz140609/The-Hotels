@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
+import { AlertTriangle, Clock } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Select } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
@@ -12,7 +13,7 @@ import { StatusDot } from '@/components/ui/status-dot';
 import { Pagination } from '@/components/ui/table';
 import { Textarea } from '@/components/ui/textarea';
 import { updateBookingStatus, updateBookingNote, deleteBooking } from '@/lib/actions/admin-bookings';
-import { formatRupiah, formatDate } from '@/lib/format';
+import { formatRupiah, formatDate, getTodayJakarta } from '@/lib/format';
 import { BOOKING_STATUS_LABELS, PAYMENT_STATUS_LABELS, type BookingStatus } from '@/lib/constants';
 import { toast } from 'sonner';
 
@@ -76,6 +77,8 @@ export function BookingTable({
   const router = useRouter();
   const [local, setLocal] = useState(filters);
   const [selected, setSelected] = useState<AdminBookingRow | null>(null);
+
+  const today = useMemo(() => getTodayJakarta(), []);
 
   const current = selected ? rows.find((r) => r.id === selected.id) ?? selected : null;
 
@@ -153,22 +156,28 @@ export function BookingTable({
               </tr>
             </thead>
             <tbody className="divide-y divide-gold/15 text-[13px]">
-              {rows.map((b) => (
-                <tr key={b.id} className="cursor-pointer transition-colors hover:bg-gold/5" onClick={() => setSelected(b)}>
-                  <td className="whitespace-nowrap px-2 py-3.5 tracking-wider text-muted-ivory">{b.kode_booking}</td>
-                  <td className="px-2 py-3.5 text-ivory">{b.nama_tamu}</td>
-                  <td className="px-2 py-3.5 text-muted-ivory">{b.room_type_name} · {b.room_number}</td>
-                  <td className="whitespace-nowrap px-2 py-3.5 text-muted-ivory">{formatDate(b.check_in)} – {formatDate(b.check_out)}</td>
-                  <td className="whitespace-nowrap px-2 py-3.5 text-gold">{formatRupiah(b.total_harga)}</td>
-                  <td className="whitespace-nowrap px-2 py-3.5 text-muted-ivory">{b.payment_status ? PAYMENT_STATUS_LABELS[b.payment_status] ?? b.payment_status : '-'}</td>
-                  <td className="whitespace-nowrap px-2 py-3.5">
-                    <StatusDot label={BOOKING_STATUS_LABELS[b.status]} color={DOT_COLOR[b.status]} />
-                  </td>
-                  <td className="whitespace-nowrap px-2 py-3.5 text-right">
-                    <span className="text-[11px] uppercase tracking-widest text-gold">Detail</span>
-                  </td>
-                </tr>
-              ))}
+              {rows.map((b) => {
+                const isLateConfirmed = b.status === 'dikonfirmasi' && today >= b.check_out;
+                return (
+                  <tr key={b.id} className="cursor-pointer transition-colors hover:bg-gold/5" onClick={() => setSelected(b)}>
+                    <td className="whitespace-nowrap px-2 py-3.5 tracking-wider text-muted-ivory">{b.kode_booking}</td>
+                    <td className="px-2 py-3.5 text-ivory">{b.nama_tamu}</td>
+                    <td className="px-2 py-3.5 text-muted-ivory">{b.room_type_name} · {b.room_number}</td>
+                    <td className="whitespace-nowrap px-2 py-3.5 text-muted-ivory">{formatDate(b.check_in)} – {formatDate(b.check_out)}</td>
+                    <td className="whitespace-nowrap px-2 py-3.5 text-gold">{formatRupiah(b.total_harga)}</td>
+                    <td className="whitespace-nowrap px-2 py-3.5 text-muted-ivory">{b.payment_status ? PAYMENT_STATUS_LABELS[b.payment_status] ?? b.payment_status : '-'}</td>
+                    <td className="whitespace-nowrap px-2 py-3.5">
+                      <StatusDot label={BOOKING_STATUS_LABELS[b.status]} color={DOT_COLOR[b.status]} />
+                      {isLateConfirmed && (
+                        <span className="mt-1 block text-[10px] font-medium text-danger">Lewat Checkout</span>
+                      )}
+                    </td>
+                    <td className="whitespace-nowrap px-2 py-3.5 text-right">
+                      <span className="text-[11px] uppercase tracking-widest text-gold">Detail</span>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
@@ -180,20 +189,60 @@ export function BookingTable({
         </div>
       )}
 
-      <Dialog open={selected !== null} onClose={refreshSelected} title="Detail Booking">
-        {current && <BookingDetail booking={current} onDone={refreshSelected} />}
+      <Dialog open={Boolean(selected)} onClose={() => setSelected(null)} title="Detail Booking">
+        {current && <BookingDetail booking={current} onDone={refreshSelected} today={today} />}
       </Dialog>
     </div>
   );
 }
 
-function BookingDetail({ booking, onDone }: { booking: AdminBookingRow; onDone: () => void }) {
+function Detail({ label, value }: { label: string; value: string }) {
+  return (
+    <div>
+      <dt className="text-[10px] uppercase tracking-widest text-gold">{label}</dt>
+      <dd className="mt-0.5 text-sm text-ivory">{value}</dd>
+    </div>
+  );
+}
+
+function BookingDetail({
+  booking,
+  onDone,
+  today,
+}: {
+  booking: AdminBookingRow;
+  onDone: () => void;
+  today: string;
+}) {
   const router = useRouter();
   const [busy, setBusy] = useState(false);
   const [note, setNote] = useState(booking.catatan ?? '');
   const [confirmDelete, setConfirmDelete] = useState(false);
 
-  const actions = NEXT_ACTIONS[booking.status] ?? [];
+  // Periksa kondisi tanggal check-in & check-out
+  const isCheckInExpired = today >= booking.check_out;
+  const isTooEarlyForCheckIn = today < booking.check_in;
+
+  const rawActions = NEXT_ACTIONS[booking.status] ?? [];
+  const actions = rawActions.map((a) => {
+    if (a.status === 'checked_in') {
+      if (isCheckInExpired) {
+        return {
+          ...a,
+          disabled: true,
+          disabledReason: `Masa menginap sudah lewat (Check-out: ${formatDate(booking.check_out)})`,
+        };
+      }
+      if (isTooEarlyForCheckIn) {
+        return {
+          ...a,
+          disabled: true,
+          disabledReason: `Check-in baru dibuka pada ${formatDate(booking.check_in)}`,
+        };
+      }
+    }
+    return { ...a, disabled: false, disabledReason: '' };
+  });
 
   const changeStatus = async (status: BookingStatus) => {
     setBusy(true);
@@ -239,6 +288,31 @@ function BookingDetail({ booking, onDone }: { booking: AdminBookingRow; onDone: 
         <StatusDot label={BOOKING_STATUS_LABELS[booking.status]} color={DOT_COLOR[booking.status]} />
       </div>
 
+      {/* Peringatan jika tanggal check-in bermasalah */}
+      {booking.status === 'dikonfirmasi' && isCheckInExpired && (
+        <div className="flex items-start gap-3 border border-danger/40 bg-danger/10 p-3.5 text-xs text-danger">
+          <AlertTriangle className="h-4 w-4 shrink-0 mt-0.5 text-danger" />
+          <div className="space-y-0.5">
+            <p className="font-semibold uppercase tracking-wider text-[11px]">Masa Reservasi Telah Berakhir (No-Show)</p>
+            <p className="font-light leading-relaxed text-danger/90">
+              Tanggal check-out ({formatDate(booking.check_out)}) sudah lewat dan tamu tidak hadir. Check-in tidak dapat dilakukan lagi. Anda dapat membatalkan pesanan ini.
+            </p>
+          </div>
+        </div>
+      )}
+
+      {booking.status === 'dikonfirmasi' && isTooEarlyForCheckIn && (
+        <div className="flex items-start gap-3 border border-gold/30 bg-gold/10 p-3.5 text-xs text-gold">
+          <Clock className="h-4 w-4 shrink-0 mt-0.5 text-gold" />
+          <div className="space-y-0.5">
+            <p className="font-semibold uppercase tracking-wider text-[11px]">Belum Waktu Check-In</p>
+            <p className="font-light leading-relaxed text-ivory/80">
+              Check-in baru dapat diproses mulai tanggal {formatDate(booking.check_in)}.
+            </p>
+          </div>
+        </div>
+      )}
+
       <dl className="grid grid-cols-1 gap-x-6 gap-y-3 sm:grid-cols-2">
         <Detail label="Nama Tamu" value={booking.nama_tamu} />
         <Detail label="Email" value={booking.email_tamu} />
@@ -273,7 +347,15 @@ function BookingDetail({ booking, onDone }: { booking: AdminBookingRow; onDone: 
           </Button>
         )}
         {actions.map((a) => (
-          <Button key={a.status} variant={a.danger ? 'danger' : 'primary'} size="sm" loading={busy} onClick={() => changeStatus(a.status)}>
+          <Button
+            key={a.status}
+            variant={a.danger ? 'danger' : 'primary'}
+            size="sm"
+            loading={busy}
+            disabled={a.disabled || busy}
+            title={a.disabledReason || undefined}
+            onClick={() => changeStatus(a.status)}
+          >
             {a.label}
           </Button>
         ))}
@@ -287,15 +369,6 @@ function BookingDetail({ booking, onDone }: { booking: AdminBookingRow; onDone: 
         message={`Hapus permanen booking ${booking.kode_booking}? Tindakan ini tidak dapat dibatalkan.`}
         danger
       />
-    </div>
-  );
-}
-
-function Detail({ label, value }: { label: string; value: string }) {
-  return (
-    <div>
-      <dt className="text-[10px] uppercase tracking-widest text-gold">{label}</dt>
-      <dd className="mt-0.5 text-[13px] text-ivory">{value}</dd>
     </div>
   );
 }

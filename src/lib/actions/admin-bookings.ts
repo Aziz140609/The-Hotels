@@ -5,6 +5,7 @@ import { createClient } from '@/lib/supabase/server';
 import { getAdminOrNull } from '@/lib/auth';
 import { bookingStatusSchema } from '@/lib/validators';
 import { mapError, type ActionResult } from '@/lib/errors';
+import { getTodayJakarta, formatDate } from '@/lib/format';
 import type { Database } from '@/types/database';
 
 const FORBIDDEN = { ok: false as const, code: 'FORBIDDEN' as const, message: 'Anda tidak memiliki akses untuk tindakan ini.' };
@@ -31,7 +32,7 @@ export async function updateBookingStatus(input: {
   const supabase = await createClient();
   const { data: current, error: readError } = await supabase
     .from('bookings')
-    .select('status')
+    .select('status, check_in, check_out, kode_booking')
     .eq('id', parsed.data.bookingId)
     .single();
 
@@ -42,6 +43,26 @@ export async function updateBookingStatus(input: {
   const allowed = ALLOWED_TRANSITIONS[current.status] ?? [];
   if (!allowed.includes(parsed.data.status)) {
     return { ok: false, code: 'INVALID_STATUS_TRANSITION', message: 'Status booking sudah berubah. Muat ulang halaman lalu coba lagi.' };
+  }
+
+  const today = getTodayJakarta();
+
+  // Validasi tanggal untuk Check-in
+  if (parsed.data.status === 'checked_in') {
+    if (today >= current.check_out) {
+      return {
+        ok: false,
+        code: 'CHECKIN_EXPIRED',
+        message: `Masa menginap sudah melewati tanggal check-out (${formatDate(current.check_out)}). Tamu tidak dapat di-check-in.`,
+      };
+    }
+    if (today < current.check_in) {
+      return {
+        ok: false,
+        code: 'CHECKIN_TOO_EARLY',
+        message: `Tamu belum dapat di-check-in sebelum tanggal reservasi (${formatDate(current.check_in)}).`,
+      };
+    }
   }
 
   const { error } = await supabase
@@ -98,6 +119,5 @@ export async function deleteBooking(id: number): Promise<ActionResult<void>> {
   }
 
   revalidatePath('/admin/booking');
-  revalidatePath('/admin');
   return { ok: true, data: undefined };
 }
