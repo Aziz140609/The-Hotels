@@ -6,7 +6,8 @@
     "dev": "next dev --webpack",
     "build": "next build --webpack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "demo:record": "node scripts/record-demo.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.9.1",
@@ -39,6 +40,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.4.1",
+    "playwright": "^1.65.1",
     "postcss": "^8.5.32",
     "tailwindcss": "^4",
     "typescript": "^5"
