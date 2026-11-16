@@ -57,7 +57,7 @@ export function SearchForm({ initialParams }: SearchFormProps) {
   return (
     <form onSubmit={handleSubmit} className="mb-12 border border-gold/20 bg-emerald-800/50 p-5 shadow-xl">
       <div className="grid grid-cols-1 divide-y divide-gold/20 md:grid-cols-2 md:divide-y-0 lg:grid-cols-6 lg:divide-x">
-        <div className="flex cursor-pointer flex-col justify-center p-5 transition-colors hover:bg-emerald-800">
+        <label className="flex cursor-pointer flex-col justify-center p-5 transition-colors hover:bg-emerald-800">
           <span className="text-[10px] uppercase tracking-widest text-gold">Tanggal Masuk</span>
           <div className="mt-2 flex items-center gap-2">
             <input
@@ -65,12 +65,12 @@ export function SearchForm({ initialParams }: SearchFormProps) {
               value={checkin}
               onChange={(e) => setCheckin(e.target.value)}
               min={minCheckin}
-              className="flex-1 bg-transparent border-b border-gold/50 focus:border-gold focus:outline-none text-ivory placeholder:text-muted-ivory/50 py-1 text-[15px] font-light"
+              className="date-input-clean flex-1 bg-transparent border-b border-gold/50 focus:border-gold focus:outline-none text-ivory placeholder:text-muted-ivory/50 py-1 text-[15px] font-light"
             />
-            <CalendarDays className="h-5 w-5 text-gold" strokeWidth={1.25} />
+            <CalendarDays className="pointer-events-none h-5 w-5 text-gold" strokeWidth={1.25} />
           </div>
-        </div>
-        <div className="flex cursor-pointer flex-col justify-center p-5 transition-colors hover:bg-emerald-800">
+        </label>
+        <label className="flex cursor-pointer flex-col justify-center p-5 transition-colors hover:bg-emerald-800">
           <span className="text-[10px] uppercase tracking-widest text-gold">Tanggal Keluar</span>
           <div className="mt-2 flex items-center gap-2">
             <input
@@ -78,11 +78,11 @@ export function SearchForm({ initialParams }: SearchFormProps) {
               value={checkout}
               onChange={(e) => setCheckout(e.target.value)}
               min={minCheckin}
-              className="flex-1 bg-transparent border-b border-gold/50 focus:border-gold focus:outline-none text-ivory placeholder:text-muted-ivory/50 py-1 text-[15px] font-light"
+              className="date-input-clean flex-1 bg-transparent border-b border-gold/50 focus:border-gold focus:outline-none text-ivory placeholder:text-muted-ivory/50 py-1 text-[15px] font-light"
             />
-            <CalendarDays className="h-5 w-5 text-gold" strokeWidth={1.25} />
+            <CalendarDays className="pointer-events-none h-5 w-5 text-gold" strokeWidth={1.25} />
           </div>
-        </div>
+        </label>
         <div className="flex flex-col justify-center p-5 transition-colors hover:bg-emerald-800">
           <span className="text-[10px] uppercase tracking-widest text-gold">Jumlah Tamu</span>
           <select

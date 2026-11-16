@@ -95,15 +95,15 @@ export function BookingForm({
         <div>
           <label htmlFor="checkin" className="text-[10px] uppercase tracking-widest text-gold">Check-in</label>
           <div className="mt-1 flex items-center gap-2">
-            <input id="checkin" type="date" min={today} value={checkIn} onChange={(e) => setCheckIn(e.target.value)} className={inputClass} />
-            <CalendarDays className="h-4 w-4 shrink-0 text-gold" strokeWidth={1.25} />
+            <input id="checkin" type="date" min={today} value={checkIn} onChange={(e) => setCheckIn(e.target.value)} className={`${inputClass} date-input-clean`} />
+            <CalendarDays className="pointer-events-none h-4 w-4 shrink-0 text-gold" strokeWidth={1.25} />
           </div>
         </div>
         <div>
           <label htmlFor="checkout" className="text-[10px] uppercase tracking-widest text-gold">Check-out</label>
           <div className="mt-1 flex items-center gap-2">
-            <input id="checkout" type="date" min={checkIn || today} value={checkOut} onChange={(e) => setCheckOut(e.target.value)} className={inputClass} />
-            <CalendarDays className="h-4 w-4 shrink-0 text-gold" strokeWidth={1.25} />
+            <input id="checkout" type="date" min={checkIn || today} value={checkOut} onChange={(e) => setCheckOut(e.target.value)} className={`${inputClass} date-input-clean`} />
+            <CalendarDays className="pointer-events-none h-4 w-4 shrink-0 text-gold" strokeWidth={1.25} />
           </div>
         </div>
       </div>

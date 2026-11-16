@@ -2,14 +2,15 @@
 
 import { useState, type ReactNode } from 'react';
 import { AdminSidebar } from './admin-sidebar';
-import { AdminTopbar } from './admin-topbar';
+import { AdminTopbar, type AdminAccountInfo } from './admin-topbar';
 
 interface AdminShellProps {
   title: string;
   children: ReactNode;
+  user?: AdminAccountInfo | null;
 }
 
-export function AdminShell({ title, children }: AdminShellProps) {
+export function AdminShell({ title, children, user }: AdminShellProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
@@ -32,7 +33,11 @@ export function AdminShell({ title, children }: AdminShellProps) {
 
       {/* Main Content Area */}
       <div className="min-w-0 flex-1 flex flex-col">
-        <AdminTopbar title={title} onMenuToggle={() => setMobileMenuOpen((prev) => !prev)} />
+        <AdminTopbar
+          title={title}
+          user={user}
+          onMenuToggle={() => setMobileMenuOpen((prev) => !prev)}
+        />
         <main className="p-6 lg:p-10 flex-1">{children}</main>
       </div>
     </div>

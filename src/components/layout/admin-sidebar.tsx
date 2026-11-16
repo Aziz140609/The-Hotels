@@ -95,11 +95,10 @@ export function AdminSidebar({ onClose, className = '' }: AdminSidebarProps) {
               {/* Label */}
               <span className="truncate">{label}</span>
 
-              {/* Right glowing active indicator dot */}
+              {/* Right glowing active indicator dot (clean, without text) */}
               {isActive && (
-                <span className="ml-auto flex items-center gap-1.5">
-                  <span className="text-[10px] font-mono tracking-widest text-gold/80 uppercase">Aktif</span>
-                  <span className="h-1.5 w-1.5 rounded-full bg-gold shadow-[0_0_8px_rgba(201,169,110,0.9)] animate-pulse" />
+                <span className="ml-auto flex items-center">
+                  <span className="h-2 w-2 rounded-full bg-gold shadow-[0_0_8px_rgba(201,169,110,0.9)] animate-pulse" />
                 </span>
               )}
             </Link>
