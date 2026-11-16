@@ -11,6 +11,7 @@ import {
   Inbox,
   Clock,
   User,
+  Copy,
 } from 'lucide-react';
 import { Dialog } from '@/components/ui/dialog';
 import { ConfirmDialog } from '@/components/ui/confirm-dialog';
@@ -325,7 +326,7 @@ export function MessageManager({
               </p>
             </div>
 
-            <div className="flex flex-col gap-3 pt-2 sm:flex-row sm:justify-between">
+            <div className="flex flex-col gap-3 pt-2 sm:flex-row sm:items-center sm:justify-between">
               <Button
                 type="button"
                 variant="outline"
@@ -337,7 +338,7 @@ export function MessageManager({
                 Hapus Pesan
               </Button>
 
-              <div className="flex gap-2">
+              <div className="flex flex-wrap items-center gap-2">
                 <Button
                   type="button"
                   variant="outline"
@@ -346,12 +347,34 @@ export function MessageManager({
                 >
                   Tutup
                 </Button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    navigator.clipboard.writeText(selectedMessage.email);
+                    toast.success(`Alamat email ${selectedMessage.email} berhasil disalin!`);
+                  }}
+                  title="Salin alamat email tamu"
+                  className="inline-flex items-center justify-center gap-1.5 border border-gold/30 bg-gold/5 px-3 py-2 text-[11px] uppercase tracking-wider text-muted-ivory transition-colors hover:bg-gold/15 hover:text-gold"
+                >
+                  <Copy className="h-3.5 w-3.5 text-gold" />
+                  Salin
+                </button>
                 <a
-                  href={`mailto:${selectedMessage.email}?subject=Re: ${encodeURIComponent(selectedMessage.subjek)}`}
-                  className="inline-flex items-center justify-center gap-2 border border-gold bg-gold px-5 py-2 text-[11px] font-medium uppercase tracking-label text-emerald-900 transition-colors hover:bg-gold/90"
+                  href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(selectedMessage.email)}&su=${encodeURIComponent(`Re: ${selectedMessage.subjek} - The Hotels`)}&body=${encodeURIComponent(`Halo ${selectedMessage.nama},\n\nTerima kasih telah menghubungi The Hotels.\n\nMenanggapi pesan Anda mengenai "${selectedMessage.subjek}":\n\n[Tulis balasan Anda di sini]\n\n---\nSalam hangat,\nTim Concierge The Hotels\nJl. Contoh No. 1, Surakarta`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 border border-gold bg-gold px-4 py-2 text-[11px] font-medium uppercase tracking-label text-emerald-900 transition-colors hover:bg-gold/90"
                 >
                   <ExternalLink className="h-3.5 w-3.5" />
-                  Balas via Email
+                  Balas via Gmail
+                </a>
+                <a
+                  href={`mailto:${selectedMessage.email}?subject=Re: ${encodeURIComponent(selectedMessage.subjek)}`}
+                  title="Buka di aplikasi email default perangkat Anda (seperti Outlook/Windows Mail)"
+                  className="inline-flex items-center justify-center gap-1.5 border border-gold/40 bg-gold/10 px-3 py-2 text-[11px] font-medium uppercase tracking-wider text-gold transition-colors hover:bg-gold/20"
+                >
+                  <Mail className="h-3.5 w-3.5" />
+                  Mail App
                 </a>
               </div>
             </div>

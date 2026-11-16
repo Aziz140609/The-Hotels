@@ -18,14 +18,14 @@ interface SearchFormProps {
 
 export function SearchForm({ initialParams }: SearchFormProps) {
   const router = useRouter();
-  
+
   const defaultCheckin = useMemo(() => format(new Date(), 'yyyy-MM-dd'), []);
   const defaultCheckout = useMemo(() => {
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
     return format(tomorrow, 'yyyy-MM-dd');
   }, []);
-  
+
   const [checkin, setCheckin] = useState(initialParams.checkin || defaultCheckin);
   const [checkout, setCheckout] = useState(initialParams.checkout || defaultCheckout);
   const [guests, setGuests] = useState(initialParams.guests || '1');
@@ -56,7 +56,7 @@ export function SearchForm({ initialParams }: SearchFormProps) {
     e.preventDefault();
     if (!checkin || !checkout) return;
     if (new Date(checkout) <= new Date(checkin)) return;
-    
+
     setIsSubmitting(true);
     const params = new URLSearchParams();
     params.set('checkin', checkin);
@@ -65,7 +65,7 @@ export function SearchForm({ initialParams }: SearchFormProps) {
     if (type) params.set('type', type);
     if (price) params.set('price', price);
     if (sort) params.set('sort', sort);
-    
+
     router.replace(`/kamar?${params.toString()}`);
     setIsSubmitting(false);
   };
@@ -108,7 +108,7 @@ export function SearchForm({ initialParams }: SearchFormProps) {
             onChange={(e) => setGuests(e.target.value)}
             className="mt-2 cursor-pointer appearance-none bg-transparent pr-6 border-b border-gold/50 focus:border-gold focus:outline-none text-[15px] text-ivory"
           >
-            {[1,2,3,4,5,6,7,8,9,10].map((g) => (
+            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((g) => (
               <option key={g} value={String(g)} className="bg-emerald-800">{g} Tamu</option>
             ))}
           </select>
@@ -142,8 +142,8 @@ export function SearchForm({ initialParams }: SearchFormProps) {
           </select>
         </div>
         <div className="flex items-center justify-center bg-gold p-4 transition-colors hover:bg-gold/90">
-          <button 
-            type="submit" 
+          <button
+            type="submit"
             disabled={isSubmitting}
             className="flex h-full min-h-[52px] w-full items-center justify-center gap-2 text-[12px] uppercase tracking-[0.25em] text-emerald-900 disabled:opacity-50"
           >

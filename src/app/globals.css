@@ -23,9 +23,19 @@
 }
 
 @keyframes scrollPulse {
-  0% { transform: translateY(-100%); opacity: 0; }
-  50% { opacity: 1; }
-  100% { transform: translateY(200%); opacity: 0; }
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(200%);
+    opacity: 0;
+  }
 }
 
 @keyframes fadeUp {
@@ -33,6 +43,7 @@
     opacity: 0;
     transform: translateY(12px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -44,6 +55,7 @@
     opacity: 0;
     transform: translateY(28px);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0);
@@ -56,10 +68,13 @@
 
 /* Card Ambient Border Shimmer Glow (Opsi 1) */
 @keyframes borderGlowPulse {
-  0%, 100% {
+
+  0%,
+  100% {
     border-color: rgba(201, 169, 110, 0.2);
     box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5), 0 0 0 0 rgba(201, 169, 110, 0);
   }
+
   50% {
     border-color: rgba(201, 169, 110, 0.6);
     box-shadow: 0 14px 35px -8px rgba(0, 0, 0, 0.6), 0 0 20px rgba(201, 169, 110, 0.22);
@@ -71,6 +86,7 @@
 }
 
 @layer base {
+
   *,
   *::before,
   *::after {
@@ -127,7 +143,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
