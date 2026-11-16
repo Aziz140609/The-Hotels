@@ -36,6 +36,22 @@ export function SearchForm({ initialParams }: SearchFormProps) {
 
   const minCheckin = format(new Date(), 'yyyy-MM-dd');
 
+  const minCheckout = useMemo(() => {
+    if (!checkin) return defaultCheckout;
+    const d = new Date(checkin);
+    d.setDate(d.getDate() + 1);
+    return format(d, 'yyyy-MM-dd');
+  }, [checkin, defaultCheckout]);
+
+  const handleCheckinChange = (val: string) => {
+    setCheckin(val);
+    if (val && checkout <= val) {
+      const d = new Date(val);
+      d.setDate(d.getDate() + 1);
+      setCheckout(format(d, 'yyyy-MM-dd'));
+    }
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!checkin || !checkout) return;
@@ -57,32 +73,34 @@ export function SearchForm({ initialParams }: SearchFormProps) {
   return (
     <form onSubmit={handleSubmit} className="mb-12 border border-gold/20 bg-emerald-800/50 p-5 shadow-xl">
       <div className="grid grid-cols-1 divide-y divide-gold/20 md:grid-cols-2 md:divide-y-0 lg:grid-cols-6 lg:divide-x">
-        <label className="flex cursor-pointer flex-col justify-center p-5 transition-colors hover:bg-emerald-800">
-          <span className="text-[10px] uppercase tracking-widest text-gold">Tanggal Masuk</span>
-          <div className="mt-2 flex items-center gap-2">
+        <div className="flex flex-col justify-center p-5 transition-colors hover:bg-emerald-800">
+          <label htmlFor="search-checkin" className="text-[10px] uppercase tracking-widest text-gold cursor-pointer">Tanggal Masuk</label>
+          <div className="relative mt-2 flex items-center gap-2">
             <input
+              id="search-checkin"
               type="date"
               value={checkin}
-              onChange={(e) => setCheckin(e.target.value)}
+              onChange={(e) => handleCheckinChange(e.target.value)}
               min={minCheckin}
-              className="date-input-clean flex-1 bg-transparent border-b border-gold/50 focus:border-gold focus:outline-none text-ivory placeholder:text-muted-ivory/50 py-1 text-[15px] font-light"
+              className="date-input-clean flex-1 bg-transparent border-b border-gold/50 focus:border-gold focus:outline-none text-ivory placeholder:text-muted-ivory/50 py-1 text-[15px] font-light cursor-pointer"
             />
-            <CalendarDays className="pointer-events-none h-5 w-5 text-gold" strokeWidth={1.25} />
+            <CalendarDays className="pointer-events-none h-5 w-5 text-gold shrink-0" strokeWidth={1.25} />
           </div>
-        </label>
-        <label className="flex cursor-pointer flex-col justify-center p-5 transition-colors hover:bg-emerald-800">
-          <span className="text-[10px] uppercase tracking-widest text-gold">Tanggal Keluar</span>
-          <div className="mt-2 flex items-center gap-2">
+        </div>
+        <div className="flex flex-col justify-center p-5 transition-colors hover:bg-emerald-800">
+          <label htmlFor="search-checkout" className="text-[10px] uppercase tracking-widest text-gold cursor-pointer">Tanggal Keluar</label>
+          <div className="relative mt-2 flex items-center gap-2">
             <input
+              id="search-checkout"
               type="date"
               value={checkout}
               onChange={(e) => setCheckout(e.target.value)}
-              min={minCheckin}
-              className="date-input-clean flex-1 bg-transparent border-b border-gold/50 focus:border-gold focus:outline-none text-ivory placeholder:text-muted-ivory/50 py-1 text-[15px] font-light"
+              min={minCheckout}
+              className="date-input-clean flex-1 bg-transparent border-b border-gold/50 focus:border-gold focus:outline-none text-ivory placeholder:text-muted-ivory/50 py-1 text-[15px] font-light cursor-pointer"
             />
-            <CalendarDays className="pointer-events-none h-5 w-5 text-gold" strokeWidth={1.25} />
+            <CalendarDays className="pointer-events-none h-5 w-5 text-gold shrink-0" strokeWidth={1.25} />
           </div>
-        </label>
+        </div>
         <div className="flex flex-col justify-center p-5 transition-colors hover:bg-emerald-800">
           <span className="text-[10px] uppercase tracking-widest text-gold">Jumlah Tamu</span>
           <select

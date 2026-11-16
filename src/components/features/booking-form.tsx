@@ -43,6 +43,22 @@ export function BookingForm({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showAuthDialog, setShowAuthDialog] = useState(false);
 
+  const minCheckOut = useMemo(() => {
+    if (!checkIn) return tomorrow;
+    const d = new Date(checkIn);
+    d.setDate(d.getDate() + 1);
+    return format(d, 'yyyy-MM-dd');
+  }, [checkIn, tomorrow]);
+
+  const handleCheckInChange = (newVal: string) => {
+    setCheckIn(newVal);
+    if (newVal && checkOut <= newVal) {
+      const d = new Date(newVal);
+      d.setDate(d.getDate() + 1);
+      setCheckOut(format(d, 'yyyy-MM-dd'));
+    }
+  };
+
   const nights = useMemo(() => {
     const a = new Date(checkIn);
     const b = new Date(checkOut);
@@ -93,16 +109,30 @@ export function BookingForm({
     <form onSubmit={(e) => { e.preventDefault(); handleSubmit(e); }} action="#" className="mt-6 space-y-4 border-t border-gold/20 pt-6">
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label htmlFor="checkin" className="text-[10px] uppercase tracking-widest text-gold">Check-in</label>
-          <div className="mt-1 flex items-center gap-2">
-            <input id="checkin" type="date" min={today} value={checkIn} onChange={(e) => setCheckIn(e.target.value)} className={`${inputClass} date-input-clean`} />
+          <label htmlFor="checkin" className="text-[10px] uppercase tracking-widest text-gold block">Check-in</label>
+          <div className="relative mt-1 flex items-center gap-2">
+            <input
+              id="checkin"
+              type="date"
+              min={today}
+              value={checkIn}
+              onChange={(e) => handleCheckInChange(e.target.value)}
+              className={`${inputClass} date-input-clean`}
+            />
             <CalendarDays className="pointer-events-none h-4 w-4 shrink-0 text-gold" strokeWidth={1.25} />
           </div>
         </div>
         <div>
-          <label htmlFor="checkout" className="text-[10px] uppercase tracking-widest text-gold">Check-out</label>
-          <div className="mt-1 flex items-center gap-2">
-            <input id="checkout" type="date" min={checkIn || today} value={checkOut} onChange={(e) => setCheckOut(e.target.value)} className={`${inputClass} date-input-clean`} />
+          <label htmlFor="checkout" className="text-[10px] uppercase tracking-widest text-gold block">Check-out</label>
+          <div className="relative mt-1 flex items-center gap-2">
+            <input
+              id="checkout"
+              type="date"
+              min={minCheckOut}
+              value={checkOut}
+              onChange={(e) => setCheckOut(e.target.value)}
+              className={`${inputClass} date-input-clean`}
+            />
             <CalendarDays className="pointer-events-none h-4 w-4 shrink-0 text-gold" strokeWidth={1.25} />
           </div>
         </div>
