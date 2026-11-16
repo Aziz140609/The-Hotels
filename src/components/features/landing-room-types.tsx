@@ -51,7 +51,8 @@ export async function LandingRoomTypes() {
       {items.map((room, idx) => (
         <ShuffleCard key={room.id} index={idx} total={items.length} className="flex">
           <article
-            className="group relative flex flex-col w-full overflow-hidden border border-gold/20 bg-emerald-800/40 transition-all duration-500 ease-out hover:-translate-y-2 hover:border-gold/60 hover:shadow-[0_20px_40px_rgba(0,0,0,0.5)]"
+            className="card-ambient-glow group relative flex flex-col w-full overflow-hidden border border-gold/20 bg-emerald-800/40 transition-all duration-500 ease-out hover:-translate-y-2 hover:border-gold/70 hover:shadow-[0_20px_40px_rgba(0,0,0,0.5)]"
+            style={{ animationDelay: `${(idx % 3) * 1.5}s` }}
           >
             <div className="relative aspect-[3/4] w-full overflow-hidden">
               <Image

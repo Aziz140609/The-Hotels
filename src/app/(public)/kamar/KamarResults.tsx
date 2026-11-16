@@ -49,7 +49,8 @@ function RoomCard({ room, index, searchParams }: { room: RoomData; index: number
   return (
     <article
       key={room.id}
-      className={`group grid grid-cols-1 bg-emerald-800/40 border border-transparent shadow-xl transition-all duration-500 ease-out hover:-translate-y-1.5 hover:border-gold/40 hover:shadow-[0_25px_50px_rgba(0,0,0,0.5)] lg:grid-cols-12 ${
+      style={{ animationDelay: `${(index % 3) * 1.5}s` }}
+      className={`card-ambient-glow group grid grid-cols-1 bg-emerald-800/40 border border-gold/20 shadow-xl transition-all duration-500 ease-out hover:-translate-y-1.5 hover:border-gold/60 hover:shadow-[0_25px_50px_rgba(0,0,0,0.5)] lg:grid-cols-12 ${
         index === 1 ? 'bg-emerald-800/60' : ''
       }`}
     >

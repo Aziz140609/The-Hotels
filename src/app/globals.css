@@ -42,20 +42,32 @@
 @keyframes shuffleCardIn {
   0% {
     opacity: 0;
-    transform: translateY(22px) scale(0.97);
-  }
-  70% {
-    opacity: 1;
-    transform: translateY(-2px) scale(1.005);
+    transform: translateY(28px);
   }
   100% {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0);
   }
 }
 
 .shuffle-card-animate {
-  animation: shuffleCardIn 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: shuffleCardIn 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Card Ambient Border Shimmer Glow (Opsi 1) */
+@keyframes borderGlowPulse {
+  0%, 100% {
+    border-color: rgba(201, 169, 110, 0.2);
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5), 0 0 0 0 rgba(201, 169, 110, 0);
+  }
+  50% {
+    border-color: rgba(201, 169, 110, 0.6);
+    box-shadow: 0 14px 35px -8px rgba(0, 0, 0, 0.6), 0 0 20px rgba(201, 169, 110, 0.22);
+  }
+}
+
+.card-ambient-glow {
+  animation: borderGlowPulse 4.5s ease-in-out infinite;
 }
 
 @layer base {
