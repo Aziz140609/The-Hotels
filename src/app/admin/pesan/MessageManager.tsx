@@ -339,14 +339,6 @@ export function MessageManager({
               </Button>
 
               <div className="flex flex-wrap items-center gap-2">
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="sm"
-                  onClick={() => setSelectedMessage(null)}
-                >
-                  Tutup
-                </Button>
                 <button
                   type="button"
                   onClick={() => {
@@ -354,7 +346,7 @@ export function MessageManager({
                     toast.success(`Alamat email ${selectedMessage.email} berhasil disalin!`);
                   }}
                   title="Salin alamat email tamu"
-                  className="inline-flex items-center justify-center gap-1.5 border border-gold/30 bg-gold/5 px-3 py-2 text-[11px] uppercase tracking-wider text-muted-ivory transition-colors hover:bg-gold/15 hover:text-gold"
+                  className="inline-flex items-center justify-center gap-1.5 border border-gold/40 bg-gold/5 px-3 py-2 text-[11px] uppercase tracking-wider text-muted-ivory transition-colors hover:bg-gold/15 hover:text-gold"
                 >
                   <Copy className="h-3.5 w-3.5 text-gold" />
                   Salin
@@ -367,14 +359,6 @@ export function MessageManager({
                 >
                   <ExternalLink className="h-3.5 w-3.5" />
                   Balas via Gmail
-                </a>
-                <a
-                  href={`mailto:${selectedMessage.email}?subject=Re: ${encodeURIComponent(selectedMessage.subjek)}`}
-                  title="Buka di aplikasi email default perangkat Anda (seperti Outlook/Windows Mail)"
-                  className="inline-flex items-center justify-center gap-1.5 border border-gold/40 bg-gold/10 px-3 py-2 text-[11px] font-medium uppercase tracking-wider text-gold transition-colors hover:bg-gold/20"
-                >
-                  <Mail className="h-3.5 w-3.5" />
-                  Mail App
                 </a>
               </div>
             </div>
