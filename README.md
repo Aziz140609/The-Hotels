@@ -7,6 +7,52 @@ bookings, users, and print/export reports.
 - **Stack**: Next.js 16 (App Router, TypeScript strict) + Tailwind CSS 4 + Supabase (Postgres, Auth, Storage) + Midtrans Snap.
 - **Language**: UI in Indonesian, code/commits in English. Currency IDR, timezone Asia/Jakarta.
 
+---
+
+## 📸 Alur Pemesanan Hotel (User Journey)
+
+Berikut adalah tahapan alur lengkap proses pemesanan kamar hotel oleh tamu, mulai dari pencarian kamar hingga penerbitan bukti pembayaran:
+
+### 1. Pencarian Kamar
+Pengunjung menentukan tanggal **Check-in**, **Check-out**, dan **Jumlah Tamu** untuk mengecek ketersediaan kamar secara real-time.
+<p align="center">
+  <img src="public/screenshoot/cari%20kamar.png" alt="Pencarian Kamar" width="85%" />
+</p>
+
+---
+
+### 2. Pilih Kategori & Filter Kamar
+Pengunjung dapat memfilter katalog kamar berdasarkan kategori (*Standard*, *Deluxe*, *Suite*) maupun rentang harga yang diinginkan.
+<p align="center">
+  <img src="public/screenshoot/Pilih%20Ketegori.png" alt="Pilih Kategori" width="85%" />
+</p>
+
+---
+
+### 3. Pemesanan Kamar (Detail & Reservasi)
+Pengunjung melihat spesifikasi lengkap kamar (luas ruang, kapasitas, fasilitas utama, dan tarif per malam), memilih durasi menginap, lalu menekan tombol **"Pesan Sekarang"** untuk melanjutkan ke proses reservasi.
+<p align="center">
+  <img src="public/screenshoot/Pesan%20Kamar.png" alt="Pesan Kamar" width="85%" />
+</p>
+
+---
+
+### 4. Status Pembayaran (Midtrans Snap Sandbox)
+Sistem membuat transaksi pembayaran aman melalui payment gateway **Midtrans Snap**. Tamu dapat memilih metode pembayaran yang tersedia (QRIS, Virtual Account, Transfer Bank). Halaman status akan memverifikasi dan memperbarui status secara otomatis.
+<p align="center">
+  <img src="public/screenshoot/Status%20Pembayaran.png" alt="Status Pembayaran" width="85%" />
+</p>
+
+---
+
+### 5. Bukti Pembayaran & Cetak Invoice
+Setelah pembayaran berhasil terkonfirmasi (*Lunas*), tamu mendapatkan **Bukti Pembayaran / Invoice Resmi** yang memuat Kode Booking, rincian biaya, jadwal menginap, serta tombol untuk mencetak (*Print*) bukti reservasi fisik.
+<p align="center">
+  <img src="public/screenshoot/Bukti%20Pembayaran.png" alt="Bukti Pembayaran" width="85%" />
+</p>
+
+---
+
 ## 1. Prerequisites
 
 - Node.js 20+ and npm
